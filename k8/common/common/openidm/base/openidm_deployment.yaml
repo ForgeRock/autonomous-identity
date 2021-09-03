@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openidm
+  labels:
+    app: autoid-openidm
+    product: autoid
+spec:
+  selector:
+    matchLabels:
+      app: autoid-openidm
+      product: autoid
+  template:
+    metadata:
+      labels:
+        app: autoid-openidm
+        product: autoid
+    spec:
+      containers:
+        - image: ""
+          name: openidm
+          env:
+          - name: PG_OPENIDM_USER_PASSWORD
+            value: 
+          - name: PG_OPENIDM_USER
+            value: 
+          - name: PGHOST
+            value: 
+          - name: PG_ROOT_PASSWORD
+            value: 
+          - name: PG_OPENIDM_DATABASE
+            value: 
+          - name: OPENIDM_OPTS
+            value:
+          volumeMounts:
+            - mountPath: /opt/openidm/conf/audit.json
+              name: idm-conf-audit
+              subPath: audit.json
+            - mountPath: /opt/openidm/conf/metrics.json
+              name: idm-conf-metrics
+              subPath: metrics.json
+            - mountPath: /opt/openidm/resolver/
+              name: idm-resolver-boot-properties
+            - mountPath: /opt/openidm/conf/repo.init.json
+              name: idm-conf-repo
+              subPath: repo.init.json
+            - mountPath: /opt/openidm/conf/datasource.jdbc-default.json
+              name: openidm-conf-datasource
+              subPath: datasource.jdbc-default.json
+            - mountPath: /opt/openidm/script/scheduleHandler.js
+              name: schedule-handler
+              subPath: scheduleHandler.js
+            - name: conf-folder
+              mountPath: /opt/openidm/conf
+      imagePullSecrets:
+        - name: autodid-registry
+      volumes:
+        - name: idm-conf-audit
+          configMap:
+            name: idm-conf-audit
+        - name: idm-conf-repo
+          configMap:
+            name: idm-conf-repo
+        - name: openidm-conf-datasource
+          configMap:
+            name: openidm-conf-datasource
+        - name: idm-resolver-boot-properties
+          secret:
+            secretName: idm-resolver-boot-properties
+        - name: idm-conf-metrics
+          configMap:
+            name: idm-conf-metrics
+        - name: schedule-handler
+          configMap:
+            name: schedule-handler
+        - name: conf-folder
+          persistentVolumeClaim:
+            claimName: openidm-pvc
+
