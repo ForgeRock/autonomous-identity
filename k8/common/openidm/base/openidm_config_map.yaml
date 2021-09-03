@@ -1,0 +1,112 @@
+---
+kind: ConfigMap
+metadata:
+  name: openidm-conf-datasource
+apiVersion: v1
+data:
+  datasource.jdbc-default.json: |
+    {
+        "driverClass" : "org.postgresql.Driver",
+        "jdbcUrl" : "jdbc:postgresql://&{openidm.repo.host}:&{openidm.repo.port}/${DATABASE_NAME}",
+        "databaseName" : "${DATABASE_NAME}",
+        "username" : "${USER_NAME}",
+        "password" : "${PASSWORD}",
+        "connectionTimeout" : 30000,
+        "connectionPool" : {
+            "type" : "hikari",
+            "minimumIdle" : 20,
+            "maximumPoolSize" : 50
+        }
+    }
+
+---
+kind: ConfigMap
+metadata:
+  name: idm-conf-repo
+apiVersion: v1
+data:
+  repo.init.json: |
+    {
+      "insert" : {
+        "internal/role" : [
+          {
+            "id" : "openidm-admin",
+            "name" : "openidm-admin",
+            "description" : "Administrative access"
+          },
+          {
+            "id" : "openidm-authorized",
+            "name" : "openidm-authorized",
+            "description" : "Basic minimum user"
+          },
+          {
+            "id" : "openidm-reg",
+            "name" : "openidm-reg",
+            "description" : "Anonymous access"
+          },
+          {
+            "id" : "openidm-cert",
+            "name" : "openidm-cert",
+            "description" : "Authenticated via certificate"
+          },
+          {
+            "id" : "openidm-tasks-manager",
+            "name" : "openidm-tasks-manager",
+            "description" : "Allowed to reassign workflow tasks"
+          },
+          {
+            "id" : "platform-provisioning",
+            "name" : "platform-provisioning",
+            "description" : "Platform provisioning access"
+          },
+     {
+        "id": "governance-administrator",
+        "name": "governance-administrator",
+        "description": "Manage governance operations"
+       },
+       {
+        "id": "access-request-admin",
+        "name": "access-request-admin",
+        "description": "Administrative access to Access Request application"
+       },
+       {
+        "id": "glossary-admin",
+        "name": "glossary-admin",
+        "description": "Administrative access to the glossary"
+       }
+        ],
+        "internal/user" : [
+          {
+            "id" : "openidm-admin",
+            "password" : "&{openidm.admin.password}"
+          },
+          {
+            "id" : "idm-provisioning"
+          }
+        ]
+      }
+    }
+
+---
+kind: ConfigMap
+metadata:
+  name: idm-conf-audit
+apiVersion: v1
+data:
+  audit.json: ""
+
+---
+kind: ConfigMap
+metadata:
+  name: idm-conf-metrics
+apiVersion: v1
+data:
+  metrics.json: ""
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openidm-secrets-json
+data:
+  secrets.json: ""
