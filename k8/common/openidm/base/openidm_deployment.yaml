@@ -54,7 +54,7 @@ spec:
             - name: conf-folder
               mountPath: /opt/openidm/conf
       imagePullSecrets:
-        - name: autodid-registry
+        - name: autoid-registry
       volumes:
         - name: idm-conf-audit
           configMap:

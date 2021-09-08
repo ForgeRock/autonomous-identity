@@ -29,7 +29,7 @@ spec:
           - mountPath: /jas-tls/
             name: iga-api-jas-certs
       imagePullSecrets:
-        - name: autodid-registry
+        - name: autoid-registry
       volumes:
       - name: iga-api-jas-certs
         secret:

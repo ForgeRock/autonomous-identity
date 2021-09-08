@@ -84,9 +84,6 @@ sed -i .template "s|#TLS_STORE_PASS#|${TLS_STORE_PASS_ENC}|"                    
 export BOOT_PROPERTIES_ENC=`cat app/openidm/overlays/boot.properties | base64`
 sed -i .template "s|#BOOT_PROPERTIES_ENC#|${BOOT_PROPERTIES_ENC}|"                                    app/openidm/overlays/openidm_secret.yaml
 
-kubectl apply -f ../common/secret-agent/base/secret-agent.yaml
-echo "Waiting for FRSA system..."
-sleep 30
 kubectl -n iga apply -k ${kustomize_dir}/
 echo "Waiting for services to start..."
 kubectl -n iga wait --for=condition=available --timeout=60s --all deployments

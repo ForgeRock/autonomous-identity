@@ -34,7 +34,7 @@ spec:
           - mountPath: /opt/autoid/mounts/jwt/
             name: jwt-certs
       imagePullSecrets:
-        - name: autodid-registry
+        - name: autoid-registry
       volumes:
       - name: jwt-certs
         secret:

@@ -6,6 +6,5 @@ resources:
 - openidm_service.yaml
 - openidm_secret.yaml
 - openidm_schedule_handler.yaml
-- openidm_secretagent_secret.yaml
 
 

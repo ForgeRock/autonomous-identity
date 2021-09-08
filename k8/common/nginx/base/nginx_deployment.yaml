@@ -30,7 +30,7 @@ spec:
             name: nginx-certs
             readOnly: true
       imagePullSecrets:
-        - name: autodid-registry
+        - name: autoid-registry
       volumes:
       - name: nginx-conf
         configMap:
