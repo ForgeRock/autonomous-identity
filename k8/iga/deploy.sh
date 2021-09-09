@@ -57,7 +57,6 @@ sed -i .template "s|#JAS_URL#|${JAS_URL}|"                                      
 sed -i .template "s|#OPENIDM_ADMIN_PASSWORD#|${OPENIDM_ADMIN_PASSWORD_ENC}|"                          app/iga-api/overlays/iga_api_secret.yaml
 sed -i .template "s|#OPENIDM_ADMIN_PASSWORD#|${OPENIDM_ADMIN_PASSWORD}|"                              utils/iga_schema_seed_job.yaml
 sed -i .template "s|#OPENIDM_ADMIN_PASSWORD#|${OPENIDM_ADMIN_PASSWORD}|"                              app/openidm/overlays/boot.properties
-sed -i .template "s|#OPENIDM_KEYSTORE_PASSWORD#|${OPENIDM_KEYSTORE_PASSWORD}|"                        app/openidm/overlays/openidm_secretagent_secret.yaml
 sed -i .template "s|#OPENIDM_PROMETHEUS_PASSWORD#|${OPENIDM_PROMETHEUS_PASSWORD}|"                    app/openidm/overlays/boot.properties
 sed -i .template "s|#PG_HOST#|${PG_HOST}|"                                                            app/openidm/overlays/openidm_deployment.yaml
 sed -i .template "s|#PG_OPENIDM_USER_PASSWORD#|${PG_OPENIDM_USER_PASSWORD}|"                          app/openidm/overlays/openidm_config_map.yaml
