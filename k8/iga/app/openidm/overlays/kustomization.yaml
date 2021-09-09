@@ -8,4 +8,3 @@ patchesStrategicMerge:
 - openidm_config_map.yaml
 - openidm_deployment.yaml
 - openidm_secret.yaml
-- openidm_secretagent_secret.yaml
