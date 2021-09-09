@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iga-api
+spec:
+  selector:
+    matchLabels:
+      app: forgerock-iga-api
+      product: autoid
+  template:
+    metadata:
+      labels:
+        app: forgerock-iga-api
+        product: autoid
+    spec:
+      containers:
+      - image: gcr.io/forgerock-autoid/ci/jnw/a-2468/iga-api:367627491
+        name: iga-api      
+        
