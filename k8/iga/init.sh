@@ -29,21 +29,13 @@ echo "Waiting for create secrets job to run..."
 # generate secrets for iga
 kubectl create -n iga -f utils/iga_create_secrets_job.yaml
 kubectl wait -n iga --for=condition=complete --timeout=60s job/iga-create-secrets-job
-<<<<<<< HEAD
 kubectl logs -n iga  --ignore-errors=true job/iga-create-secrets-job
-=======
-kubectl logs -n iga  --ignore-errors=true job/iga-create-secrets-job | grep 'TLS_STORE_PASS'
->>>>>>> a2cb1c78b8 (create secrets job, container, update gitlab-ci.)
 
 # create datastore tenancy
 kubectl -n iga create -f utils/iga_datastore_schema_job.yaml
 echo "Waiting for datastore schema job to run..."
 kubectl wait -n iga --for=condition=complete --timeout=90s job/iga-datastore-schema-job
-<<<<<<< HEAD
 echo "Tenant id: "; kubectl logs -n iga --ignore-errors=true job/iga-datastore-schema-job
-=======
-echo "Tenant id: "; kubectl logs -n iga --ignore-errors=true job/iga-datastore-schema-job | grep 'Tenant ID' | cut -f4 -d ':'
->>>>>>> a2cb1c78b8 (create secrets job, container, update gitlab-ci.)
 
 echo " "
 echo "--------"
