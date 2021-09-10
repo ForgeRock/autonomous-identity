@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/forgerock-autoid/ci/jnw/a-2468/openidm:368827538
+        - image: gcr.io/forgerock-autoid/ci/jnw/a-2468/openidm:368890182
           name: openidm
           env:
           - name: PG_OPENIDM_USER
@@ -22,19 +22,19 @@ spec:
             value: openidm ## provisioned by user
           - name: OPENIDM_OPTS
             value: -Xmx1024m -Xms1024m -Dopenidm.repo.host=$(PGHOST) -Dopenidm.repo.port=5432 ## provisioned by user
-      #     volumeMounts:
-      #     - mountPath: /var/run/secrets/idm
-      #       name: idm-secrets
-      #     - mountPath: /opt/openidm/conf/secrets.json
-      #       name: secrets-json
-      #       subPath: secrets.json
-      # volumes:
-      # - name: secrets-json
-      #   configMap:
-      #     defaultMode: 420
-      #     name: openidm-secrets-json
-      # - name: idm-secrets
-      #   secret:
-      #     defaultMode: 420
-      #     secretName: openidm
+          volumeMounts:
+          - mountPath: /var/run/secrets/idm
+            name: idm-secrets
+          - mountPath: /opt/openidm/conf/secrets.json
+            name: secrets-json
+            subPath: secrets.json
+      volumes:
+      - name: secrets-json
+        configMap:
+          defaultMode: 420
+          name: openidm-secrets-json
+      - name: idm-secrets
+        secret:
+          defaultMode: 420
+          secretName: openidm
 

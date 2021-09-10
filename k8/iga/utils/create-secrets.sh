@@ -46,6 +46,22 @@ generate_certs () {
     openssl req -new -key $WORKDIR/ingress-key.pem -out $WORKDIR/ingress.csr -config $WORKDIR/openssl-ingress.conf
     openssl x509 -req -in $WORKDIR/ingress.csr -CA $WORKDIR/rootCA.pem -CAkey $WORKDIR/rootCA.key -CAcreateserial -out $WORKDIR/ingress-cert.pem -days 3650 -sha256
 
+    # openidm
+    openssl genrsa -out $WORKDIR/openidm.key 2048
+    openssl req -new -key $WORKDIR/openidm.key -out $WORKDIR/openidm.csr -config $WORKDIR/openssl-openidm.conf
+    openssl x509 -req -in $WORKDIR/openidm.csr -CA $WORKDIR/rootCA.pem -CAkey $WORKDIR/rootCA.key -CAcreateserial -out $WORKDIR/openidm.crt -days 3650 -sha256
+    cat $WORKDIR/openidm.key $WORKDIR/openidm.crt > $WORKDIR/openidm.pem
+
+    keytool -genkeypair -keyalg RSA -alias openidm-localhost -keystore $WORKDIR/openidm-client-keystore.jks -storepass $TLS_STORE_PASS  -keypass $TLS_STORE_PASS -validity 3650 -keysize 2048 -dname "CN=openidm, OU=openidmcluster, O=YourCompany, C=US"
+    keytool -list -keystore $WORKDIR/jas-client-keystore.jks -storepass $TLS_STORE_PASS
+    keytool -certreq -keystore $WORKDIR/openidm-client-keystore.jks -alias openidm-localhost  -file $WORKDIR/${KEY_ALIAS}.csr  -keypass $TLS_STORE_PASS  -storepass $TLS_STORE_PASS -dname "CN=openidm, OU=TestCluster, O=YourCompany, C=US"
+    openssl x509 -req -CA $WORKDIR/rootCA.pem -CAkey $WORKDIR/rootCA.key -in $WORKDIR/openidm-localhost.csr -out $WORKDIR/openidm-localhost.crt_signed -days 3650 -CAcreateserial -passin pass:$TLS_STORE_PASS
+    openssl verify -CAfile $WORKDIR/rootCA.pem $WORKDIR/openidm-localhost.crt_signed
+
+    keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias rootCa -file $WORKDIR/rootCA.pem -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
+    keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias $WORKDIR/openidm-localhost -file $WORKDIR/openidm-localhost.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
+    keytool -importcert -keystore $WORKDIR/openidm-server-truststore.jks -alias rootCa -file $WORKDIR/rootCA.pem -noprompt -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
+
 }
 
 create_certs() {
@@ -67,6 +83,10 @@ create_certs() {
     kubectl create secret generic nginx-certs \
     --from-file=$WORKDIR/ingress-cert.pem \
     --from-file=$WORKDIR/ingress-key.pem
+
+    kubectl create secret generic idm-secrets \
+    --from-file=$WORKDIR/openidm-client-keystore.jks \
+    --from-file=$WORKDIR/openidm-server-truststore.jks
 }
 
 generate_certs
