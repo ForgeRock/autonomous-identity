@@ -54,7 +54,7 @@ generate_certs () {
 
     keytool -genkeypair -keyalg RSA -alias openidm-localhost -keystore $WORKDIR/openidm-client-keystore.jks -storepass $TLS_STORE_PASS  -keypass $TLS_STORE_PASS -validity 3650 -keysize 2048 -dname "CN=openidm, OU=openidmcluster, O=YourCompany, C=US"
     keytool -list -keystore $WORKDIR/jas-client-keystore.jks -storepass $TLS_STORE_PASS
-    keytool -certreq -keystore $WORKDIR/openidm-client-keystore.jks -alias openidm-localhost  -file $WORKDIR/${KEY_ALIAS}.csr  -keypass $TLS_STORE_PASS  -storepass $TLS_STORE_PASS -dname "CN=openidm, OU=TestCluster, O=YourCompany, C=US"
+    keytool -certreq -keystore $WORKDIR/openidm-client-keystore.jks -alias openidm-localhost  -file $WORKDIR/${KEY_ALIAS}.csr  -keypass $TLS_STORE_PASS  -storepass $TLS_STORE_PASS -dname "CN=openidm, OU=openidmcluster, O=YourCompany, C=US"
     openssl x509 -req -CA $WORKDIR/rootCA.pem -CAkey $WORKDIR/rootCA.key -in $WORKDIR/openidm-localhost.csr -out $WORKDIR/openidm-localhost.crt_signed -days 3650 -CAcreateserial -passin pass:$TLS_STORE_PASS
     openssl verify -CAfile $WORKDIR/rootCA.pem $WORKDIR/openidm-localhost.crt_signed
 

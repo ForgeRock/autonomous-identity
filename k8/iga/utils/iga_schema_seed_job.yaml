@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: iga-schema-seed-job
-        image: gcr.io/forgerock-autoid/ci/jnw/a-2468/iga-demo-data:368890182
+        image: gcr.io/forgerock-autoid/ci/jnw/a-2468/iga-demo-data:368904113
         command: ["bash","-c","/opt/iga-seed-data/script/conf/confLoader.py"]
         env:
           - name: OPENIDM_ADMIN_PASSWORD
