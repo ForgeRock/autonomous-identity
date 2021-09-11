@@ -7,5 +7,5 @@ spec:
   template:
     spec:
       containers:
-      - image: gcr.io/forgerock-autoid/ci/jnw/a-2468/jas:368929559
+      - image: gcr.io/forgerock-autoid/ci/jnw/a-2468/jas:369176436
         name: jasnode
