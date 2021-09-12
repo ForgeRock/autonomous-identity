@@ -3,7 +3,7 @@
 WORKDIR='/app'
 
 generate_password () {
-    local pass=`openssl rand -base64 32`
+    local pass=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-12} | head -n 1`
     echo "$pass"
 }
 
