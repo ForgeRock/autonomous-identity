@@ -47,151 +47,151 @@ generate_certs () {
     openssl req -new -key $WORKDIR/ingress-key.pem -out $WORKDIR/ingress.csr -config $WORKDIR/openssl-ingress.conf
     openssl x509 -req -in $WORKDIR/ingress.csr -CA $WORKDIR/rootCA.pem -CAkey $WORKDIR/rootCA.key -CAcreateserial -out $WORKDIR/ingress-cert.pem -days 3650 -sha256
 
-    echo "openidm-localhost"
-    # openidm-localhost
-    openssl genrsa -out $WORKDIR/openidm-localhost.key 2048
+    # echo "openidm-localhost"
+    # # openidm-localhost
+    # openssl genrsa -out $WORKDIR/openidm-localhost.key 2048
 
-    openssl req -new \
-    -key $WORKDIR/openidm-localhost.key \
-    -out $WORKDIR/openidm-localhost.csr \
-    -config $WORKDIR/openssl-openidm.conf
+    # openssl req -new \
+    # -key $WORKDIR/openidm-localhost.key \
+    # -out $WORKDIR/openidm-localhost.csr \
+    # -config $WORKDIR/openssl-openidm.conf
     
-    openssl x509 -req \
-    -in $WORKDIR/openidm-localhost.csr \
-    -CA $WORKDIR/rootCA.pem \
-    -CAkey $WORKDIR/rootCA.key \
-    -CAcreateserial \
-    -out $WORKDIR/openidm-localhost.crt -days 3650 -sha256
+    # openssl x509 -req \
+    # -in $WORKDIR/openidm-localhost.csr \
+    # -CA $WORKDIR/rootCA.pem \
+    # -CAkey $WORKDIR/rootCA.key \
+    # -CAcreateserial \
+    # -out $WORKDIR/openidm-localhost.crt -days 3650 -sha256
     
-    cat $WORKDIR/openidm-localhost.key \
-    $WORKDIR/openidm-localhost.crt > $WORKDIR/openidm-localhost.pem
+    # cat $WORKDIR/openidm-localhost.key \
+    # $WORKDIR/openidm-localhost.crt > $WORKDIR/openidm-localhost.pem
 
-    keytool -genkeypair \
-    -keyalg RSA -alias openidm-localhost \
-    -keystore $WORKDIR/openidm-client-keystore.jks \
-    -storepass $TLS_STORE_PASS \
-    -keypass $TLS_STORE_PASS \
-    -validity 3650 \
-    -keysize 2048 \
-    -dname "CN=openidm, OU=openidmcluster, O=YourCompany, C=US"
+    # keytool -genkeypair \
+    # -keyalg RSA -alias openidm-localhost \
+    # -keystore $WORKDIR/openidm-client-keystore.jks \
+    # -storepass $TLS_STORE_PASS \
+    # -keypass $TLS_STORE_PASS \
+    # -validity 3650 \
+    # -keysize 2048 \
+    # -dname "CN=openidm, OU=openidmcluster, O=YourCompany, C=US"
     
-    keytool -certreq \
-    -keystore $WORKDIR/openidm-client-keystore.jks \
-    -alias openidm-localhost \
-    -file $WORKDIR/openidm-localhost.csr \
-    -keypass $TLS_STORE_PASS \
-    -storepass $TLS_STORE_PASS \
-    -dname "CN=openidm, OU=openidmcluster, O=YourCompany, C=US"
+    # keytool -certreq \
+    # -keystore $WORKDIR/openidm-client-keystore.jks \
+    # -alias openidm-localhost \
+    # -file $WORKDIR/openidm-localhost.csr \
+    # -keypass $TLS_STORE_PASS \
+    # -storepass $TLS_STORE_PASS \
+    # -dname "CN=openidm, OU=openidmcluster, O=YourCompany, C=US"
     
-    openssl x509 -req \
-    -CA $WORKDIR/rootCA.pem \
-    -CAkey $WORKDIR/rootCA.key \
-    -in $WORKDIR/openidm-localhost.csr \
-    -out $WORKDIR/openidm-localhost.crt_signed \
-    -days 3650 \
-    -CAcreateserial \
-    -passin pass:$TLS_STORE_PASS
+    # openssl x509 -req \
+    # -CA $WORKDIR/rootCA.pem \
+    # -CAkey $WORKDIR/rootCA.key \
+    # -in $WORKDIR/openidm-localhost.csr \
+    # -out $WORKDIR/openidm-localhost.crt_signed \
+    # -days 3650 \
+    # -CAcreateserial \
+    # -passin pass:$TLS_STORE_PASS
     
-    openssl verify -CAfile $WORKDIR/rootCA.pem \
-    $WORKDIR/openidm-localhost.crt_signed
+    # openssl verify -CAfile $WORKDIR/rootCA.pem \
+    # $WORKDIR/openidm-localhost.crt_signed
 
-    echo "selfservice"
+    # echo "selfservice"
 
-    # selfservice
-    openssl genrsa -out $WORKDIR/selfservice.key 2048
+    # # selfservice
+    # openssl genrsa -out $WORKDIR/selfservice.key 2048
     
-    openssl req -new \
-    -key $WORKDIR/selfservice.key \
-    -out $WORKDIR/selfservice.csr \
-    -config $WORKDIR/openssl-selfservice.conf
+    # openssl req -new \
+    # -key $WORKDIR/selfservice.key \
+    # -out $WORKDIR/selfservice.csr \
+    # -config $WORKDIR/openssl-selfservice.conf
     
-    openssl x509 -req \
-    -in $WORKDIR/selfservice.csr \
-    -CA $WORKDIR/rootCA.pem \
-    -CAkey $WORKDIR/rootCA.key \
-    -CAcreateserial \
-    -out $WORKDIR/selfservice.crt -days 3650 -sha256
+    # openssl x509 -req \
+    # -in $WORKDIR/selfservice.csr \
+    # -CA $WORKDIR/rootCA.pem \
+    # -CAkey $WORKDIR/rootCA.key \
+    # -CAcreateserial \
+    # -out $WORKDIR/selfservice.crt -days 3650 -sha256
     
-    cat $WORKDIR/selfservice.key \
-    $WORKDIR/selfservice.crt > $WORKDIR/selfservice.pem
+    # cat $WORKDIR/selfservice.key \
+    # $WORKDIR/selfservice.crt > $WORKDIR/selfservice.pem
 
-    keytool -genkeypair \
-    -keyalg RSA -alias selfservice \
-    -keystore $WORKDIR/openidm-client-keystore.jks \
-    -storepass $TLS_STORE_PASS \
-    -keypass $TLS_STORE_PASS \
-    -validity 3650 \
-    -keysize 2048 \
-    -dname "CN=selfservice, OU=openidmcluster, O=YourCompany, C=US"
+    # keytool -genkeypair \
+    # -keyalg RSA -alias selfservice \
+    # -keystore $WORKDIR/openidm-client-keystore.jks \
+    # -storepass $TLS_STORE_PASS \
+    # -keypass $TLS_STORE_PASS \
+    # -validity 3650 \
+    # -keysize 2048 \
+    # -dname "CN=selfservice, OU=openidmcluster, O=YourCompany, C=US"
     
-    keytool -certreq \
-    -keystore $WORKDIR/openidm-client-keystore.jks \
-    -alias selfservice \
-    -file $WORKDIR/selfservice.csr \
-    -keypass $TLS_STORE_PASS \
-    -storepass $TLS_STORE_PASS \
-    -dname "CN=selfservice, OU=openidmcluster, O=YourCompany, C=US"
+    # keytool -certreq \
+    # -keystore $WORKDIR/openidm-client-keystore.jks \
+    # -alias selfservice \
+    # -file $WORKDIR/selfservice.csr \
+    # -keypass $TLS_STORE_PASS \
+    # -storepass $TLS_STORE_PASS \
+    # -dname "CN=selfservice, OU=openidmcluster, O=YourCompany, C=US"
     
-    openssl x509 -req \
-    -CA $WORKDIR/rootCA.pem \
-    -CAkey $WORKDIR/rootCA.key \
-    -in $WORKDIR/selfservice.csr \
-    -out $WORKDIR/selfservice.crt_signed \
-    -days 3650 \
-    -CAcreateserial \
-    -passin pass:$TLS_STORE_PASS
+    # openssl x509 -req \
+    # -CA $WORKDIR/rootCA.pem \
+    # -CAkey $WORKDIR/rootCA.key \
+    # -in $WORKDIR/selfservice.csr \
+    # -out $WORKDIR/selfservice.crt_signed \
+    # -days 3650 \
+    # -CAcreateserial \
+    # -passin pass:$TLS_STORE_PASS
     
-    openssl verify -CAfile $WORKDIR/rootCA.pem \
-    $WORKDIR/selfservice.crt_signed
+    # openssl verify -CAfile $WORKDIR/rootCA.pem \
+    # $WORKDIR/selfservice.crt_signed
 
-    echo "servercert"
-    # servercert
-    openssl genrsa -out $WORKDIR/servercert.key 2048
+    # echo "servercert"
+    # # servercert
+    # openssl genrsa -out $WORKDIR/servercert.key 2048
 
-    openssl req -new \
-    -key $WORKDIR/servercert.key \
-    -out $WORKDIR/servercert.csr \
-    -config $WORKDIR/openssl-servercert.conf
+    # openssl req -new \
+    # -key $WORKDIR/servercert.key \
+    # -out $WORKDIR/servercert.csr \
+    # -config $WORKDIR/openssl-servercert.conf
     
-    openssl x509 -req \
-    -in $WORKDIR/servercert.csr \
-    -CA $WORKDIR/rootCA.pem \
-    -CAkey $WORKDIR/rootCA.key \
-    -CAcreateserial \
-    -out $WORKDIR/servercert.crt -days 3650 -sha256
+    # openssl x509 -req \
+    # -in $WORKDIR/servercert.csr \
+    # -CA $WORKDIR/rootCA.pem \
+    # -CAkey $WORKDIR/rootCA.key \
+    # -CAcreateserial \
+    # -out $WORKDIR/servercert.crt -days 3650 -sha256
     
-    cat $WORKDIR/servercert.key \
-    $WORKDIR/servercert.crt > $WORKDIR/servercert.pem
+    # cat $WORKDIR/servercert.key \
+    # $WORKDIR/servercert.crt > $WORKDIR/servercert.pem
 
-    keytool -genkeypair \
-    -keyalg RSA \
-    -alias servercert \
-    -storepass $TLS_STORE_PASS \
-    -keypass $TLS_STORE_PASS \
-    -keystore $WORKDIR/openidm-client-keystore.jks \
-    -validity 3650 \
-    -keysize 2048 \
-    -dname "CN=servercert, OU=openidmcluster, O=YourCompany, C=US"
+    # keytool -genkeypair \
+    # -keyalg RSA \
+    # -alias servercert \
+    # -storepass $TLS_STORE_PASS \
+    # -keypass $TLS_STORE_PASS \
+    # -keystore $WORKDIR/openidm-client-keystore.jks \
+    # -validity 3650 \
+    # -keysize 2048 \
+    # -dname "CN=servercert, OU=openidmcluster, O=YourCompany, C=US"
     
-    keytool -certreq \
-    -keystore $WORKDIR/openidm-client-keystore.jks \
-    -alias servercert \
-    -file $WORKDIR/servercert.csr \
-    -keypass $TLS_STORE_PASS \
-    -storepass $TLS_STORE_PASS \
-    -dname "CN=servercert, OU=openidmcluster, O=YourCompany, C=US"
+    # keytool -certreq \
+    # -keystore $WORKDIR/openidm-client-keystore.jks \
+    # -alias servercert \
+    # -file $WORKDIR/servercert.csr \
+    # -keypass $TLS_STORE_PASS \
+    # -storepass $TLS_STORE_PASS \
+    # -dname "CN=servercert, OU=openidmcluster, O=YourCompany, C=US"
     
-    openssl x509 -req \
-    -CA $WORKDIR/rootCA.pem \
-    -CAkey $WORKDIR/rootCA.key \
-    -in $WORKDIR/servercert.csr \
-    -out $WORKDIR/servercert.crt_signed \
-    -days 3650 \
-    -CAcreateserial \
-    -passin pass:$TLS_STORE_PASS
+    # openssl x509 -req \
+    # -CA $WORKDIR/rootCA.pem \
+    # -CAkey $WORKDIR/rootCA.key \
+    # -in $WORKDIR/servercert.csr \
+    # -out $WORKDIR/servercert.crt_signed \
+    # -days 3650 \
+    # -CAcreateserial \
+    # -passin pass:$TLS_STORE_PASS
     
-    openssl verify -CAfile $WORKDIR/rootCA.pem \
-    $WORKDIR/servercert.crt_signed
+    # openssl verify -CAfile $WORKDIR/rootCA.pem \
+    # $WORKDIR/servercert.crt_signed
 
     echo "openidm-sym-default"
     # openidm-sym-default 
@@ -202,6 +202,7 @@ generate_certs () {
     -keyalg AES \
     -keysize 128 \
     -keystore $WORKDIR/openidm-client-keystore.jks \
+    -storetype jceks
 
     echo "openidm-jwtsessionhmac-key"
     # openidm-jwtsessionhmac-key
@@ -212,6 +213,7 @@ generate_certs () {
     -keysize 256 \
     -keystore $WORKDIR/openidm-client-keystore.jks \
     -storepass $TLS_STORE_PASS 
+    -storetype jceks
 
     echo "openidm-selfservice-key"
     # openidm-selfservice-key
@@ -222,10 +224,11 @@ generate_certs () {
     -keysize 128 \
     -keystore $WORKDIR/openidm-client-keystore.jks \
     -storepass $TLS_STORE_PASS \
+    -storetype jceks
 
-    keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias openidm-localhost -file $WORKDIR/openidm-localhost.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
-    keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias selfservice -file $WORKDIR/selfservice.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
-    keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias servercert -file $WORKDIR/servercert.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
+    # keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias openidm-localhost -file $WORKDIR/openidm-localhost.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
+    # keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias selfservice -file $WORKDIR/selfservice.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
+    # keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias servercert -file $WORKDIR/servercert.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
 
     keytool -importcert -keystore $WORKDIR/openidm-server-truststore.jks -alias rootCa -file $WORKDIR/rootCA.pem -noprompt -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
 
