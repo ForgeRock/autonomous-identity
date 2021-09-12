@@ -46,6 +46,7 @@ generate_certs () {
     openssl req -new -key $WORKDIR/ingress-key.pem -out $WORKDIR/ingress.csr -config $WORKDIR/openssl-ingress.conf
     openssl x509 -req -in $WORKDIR/ingress.csr -CA $WORKDIR/rootCA.pem -CAkey $WORKDIR/rootCA.key -CAcreateserial -out $WORKDIR/ingress-cert.pem -days 3650 -sha256
 
+    echo "openidm-localhost"
     # openidm-localhost
     openssl genrsa -out $WORKDIR/openidm-localhost.key 2048
     openssl req -new \
@@ -91,6 +92,8 @@ generate_certs () {
     
     openssl verify -CAfile $WORKDIR/rootCA.pem \
     $WORKDIR/openidm-localhost.crt_signed
+
+    echo "selfservice"
 
     # selfservice
     openssl genrsa -out $WORKDIR/selfservice.key 2048
@@ -138,6 +141,7 @@ generate_certs () {
     openssl verify -CAfile $WORKDIR/rootCA.pem \
     $WORKDIR/selfservice.crt_signed
 
+    echo "servercert"
     # servercert
     openssl genrsa -out $WORKDIR/servercert.key 2048
     openssl req -new \
@@ -184,6 +188,7 @@ generate_certs () {
     openssl verify -CAfile $WORKDIR/rootCA.pem \
     $WORKDIR/servercert.crt_signed
 
+    echo "openidm-sym-default"
     # openidm-sym-default 
     keytool -genseckey \
     -alias openidm-sym-default \
@@ -194,6 +199,7 @@ generate_certs () {
     -keystore openidm-client-keystore.jks \
     -storetype jceks
 
+    echo "openidm-jwtsessionhmac-key"
     # openidm-jwtsessionhmac-key
     keytool -genseckey \
     -alias openidm-jwtsessionhmac-key \
@@ -203,6 +209,7 @@ generate_certs () {
     -storepass $TLS_STORE_PASS \
     -keypass $TLS_STORE_PASS
 
+    echo "openidm-selfservice-key"
     # openidm-selfservice-key
     keytool -genseckey \
     -alias openidm-selfservice-key \
