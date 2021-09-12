@@ -144,6 +144,7 @@ generate_certs () {
     echo "servercert"
     # servercert
     openssl genrsa -out $WORKDIR/servercert.key 2048
+
     openssl req -new \
     -key $WORKDIR/servercert.key \
     -out $WORKDIR/servercert.csr \
@@ -160,12 +161,12 @@ generate_certs () {
     $WORKDIR/servercert.crt > $WORKDIR/servercert.pem
 
     keytool -genkeypair \
-    -keyalg RSA -alias servercert \keystore.jks \
+    -keyalg RSA -alias servercert \
     -storepass $TLS_STORE_PASS \
     -keypass $TLS_STORE_PASS \
-    -keystore $WORKDIR/openidm-client-
-    -validity 3650 \ .LKM,O09
-    -keysize 2048 \ .LKM,O09
+    -keystore $WORKDIR/openidm-client-keystore.jks
+    -validity 3650 \
+    -keysize 2048 \
     -dname "CN=servercert, OU=openidmcluster, O=YourCompany, C=US"
     
     keytool -certreq \
@@ -204,34 +205,31 @@ generate_certs () {
     keytool -genseckey \
     -alias openidm-jwtsessionhmac-key \
     -keyalg HmacSHA256 \
+    -keypass $TLS_STORE_PASS \
     -keysize 256 \
     -keystore $WORKDIR/openidm-client-keystore.jks \
-    -storepass $TLS_STORE_PASS \
-    -keypass $TLS_STORE_PASS
+    -storepass $TLS_STORE_PASS 
 
     echo "openidm-selfservice-key"
     # openidm-selfservice-key
-    keytool -genseckey \
+    keytool -genseckey \   
     -alias openidm-selfservice-key \
-    -storepass $TLS_STORE_PASS \
-    -keypass $TLS_STORE_PASS \
     -keyalg AES \
+    -keypass $TLS_STORE_PASS \
     -keysize 128 \
     -keystore openidm-client-keystore.jks \
-    -storetype jceks
-  
-    keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias rootCa -file $WORKDIR/rootCA.pem -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
+    -storepass $TLS_STORE_PASS \
+    -storetype jceks 
+
     keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias openidm-localhost -file $WORKDIR/openidm-localhost.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
-    keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias servercert -file $WORKDIR/openidm-servercert.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
     keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias selfservice -file $WORKDIR/openidm-selfservice.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
-    
+    keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias servercert -file $WORKDIR/servercert.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
+
     keytool -importcert -keystore $WORKDIR/openidm-server-truststore.jks -alias rootCa -file $WORKDIR/rootCA.pem -noprompt -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
 
     keytool -list \
     -keystore $WORKDIR/openidm-client-keystore.jks \
     -storepass $TLS_STORE_PASS
-
-    ls $WORKDIR/
 }
 
 create_certs() {
