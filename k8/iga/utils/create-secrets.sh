@@ -49,6 +49,7 @@ generate_certs () {
     echo "openidm-localhost"
     # openidm-localhost
     openssl genrsa -out $WORKDIR/openidm-localhost.key 2048
+
     openssl req -new \
     -key $WORKDIR/openidm-localhost.key \
     -out $WORKDIR/openidm-localhost.csr \
@@ -97,6 +98,7 @@ generate_certs () {
 
     # selfservice
     openssl genrsa -out $WORKDIR/selfservice.key 2048
+    
     openssl req -new \
     -key $WORKDIR/selfservice.key \
     -out $WORKDIR/selfservice.csr \
@@ -198,7 +200,7 @@ generate_certs () {
     -keypass $TLS_STORE_PASS \
     -keyalg AES \
     -keysize 128 \
-    -keystore openidm-client-keystore.jks \
+    -keystore $WORKDIR/openidm-client-keystore.jks \
     -storetype jceks
 
     echo "openidm-jwtsessionhmac-key"
@@ -218,7 +220,7 @@ generate_certs () {
     -keyalg AES \
     -keypass $TLS_STORE_PASS \
     -keysize 128 \
-    -keystore openidm-client-keystore.jks \
+    -keystore $WORKDIR/openidm-client-keystore.jks \
     -storepass $TLS_STORE_PASS \
     -storetype jceks 
 
