@@ -10,7 +10,6 @@ generate_password () {
 generate_certs () {
     # Create random password
     TLS_STORE_PASS=$(generate_password)
-    KEY_ALIAS='jasnodekey'
 
     # Generate root CA
     openssl genrsa -out $WORKDIR/rootCA.key 2048
@@ -22,14 +21,14 @@ generate_certs () {
     openssl x509 -req -in $WORKDIR/jas.csr -CA $WORKDIR/rootCA.pem -CAkey $WORKDIR/rootCA.key -CAcreateserial -out $WORKDIR/jas.crt -days 3650 -sha256
     cat $WORKDIR/jas.key $WORKDIR/jas.crt > $WORKDIR/jas.pem
 
-    keytool -genkeypair -keyalg RSA -alias ${KEY_ALIAS} -keystore $WORKDIR/jas-client-keystore.jks -storepass $TLS_STORE_PASS  -keypass $TLS_STORE_PASS -validity 3650 -keysize 2048 -dname "CN=jasnode, OU=jascluster, O=YourCompany, C=US"
+    keytool -genkeypair -keyalg RSA -alias jasnodekey -keystore $WORKDIR/jas-client-keystore.jks -storepass $TLS_STORE_PASS  -keypass $TLS_STORE_PASS -validity 3650 -keysize 2048 -dname "CN=jasnode, OU=jascluster, O=YourCompany, C=US"
     keytool -list -keystore $WORKDIR/jas-client-keystore.jks -storepass $TLS_STORE_PASS
-    keytool -certreq -keystore $WORKDIR/jas-client-keystore.jks -alias ${KEY_ALIAS}  -file $WORKDIR/${KEY_ALIAS}.csr  -keypass $TLS_STORE_PASS  -storepass $TLS_STORE_PASS -dname "CN=jasnode, OU=TestCluster, O=YourCompany, C=US"
-    openssl x509 -req -CA $WORKDIR/rootCA.pem -CAkey $WORKDIR/rootCA.key -in $WORKDIR/${KEY_ALIAS}.csr -out $WORKDIR/${KEY_ALIAS}.crt_signed -days 3650 -CAcreateserial -passin pass:$TLS_STORE_PASS
-    openssl verify -CAfile $WORKDIR/rootCA.pem $WORKDIR/${KEY_ALIAS}.crt_signed
+    keytool -certreq -keystore $WORKDIR/jas-client-keystore.jks -alias jasnodekey  -file $WORKDIR/jasnodekey.csr  -keypass $TLS_STORE_PASS  -storepass $TLS_STORE_PASS -dname "CN=jasnode, OU=TestCluster, O=YourCompany, C=US"
+    openssl x509 -req -CA $WORKDIR/rootCA.pem -CAkey $WORKDIR/rootCA.key -in $WORKDIR/jasnodekey.csr -out $WORKDIR/jasnodekey.crt_signed -days 3650 -CAcreateserial -passin pass:$TLS_STORE_PASS
+    openssl verify -CAfile $WORKDIR/rootCA.pem $WORKDIR/jasnodekey.crt_signed
 
     keytool -importcert -keystore $WORKDIR/jas-client-keystore.jks -alias rootCa -file $WORKDIR/rootCA.pem -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
-    keytool -importcert -keystore $WORKDIR/jas-client-keystore.jks -alias $WORKDIR/${KEY_ALIAS} -file $WORKDIR/${KEY_ALIAS}.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
+    keytool -importcert -keystore $WORKDIR/jas-client-keystore.jks -alias $WORKDIR/jasnodekey -file $WORKDIR/jasnodekey.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
     keytool -importcert -keystore $WORKDIR/jas-server-truststore.jks -alias rootCa -file $WORKDIR/rootCA.pem -noprompt -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
 
     # jwt
@@ -259,6 +258,6 @@ create_certs() {
 }
 
 generate_certs
-create_certs
+#create_certs
 
 
