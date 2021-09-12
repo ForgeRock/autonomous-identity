@@ -201,7 +201,6 @@ generate_certs () {
     -keyalg AES \
     -keysize 128 \
     -keystore $WORKDIR/openidm-client-keystore.jks \
-    -storetype jceks
 
     echo "openidm-jwtsessionhmac-key"
     # openidm-jwtsessionhmac-key
@@ -222,7 +221,6 @@ generate_certs () {
     -keysize 128 \
     -keystore $WORKDIR/openidm-client-keystore.jks \
     -storepass $TLS_STORE_PASS \
-    -storetype jceks 
 
     keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias openidm-localhost -file $WORKDIR/openidm-localhost.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
     keytool -importcert -keystore $WORKDIR/openidm-client-keystore.jks -alias selfservice -file $WORKDIR/selfservice.crt_signed -noprompt  -keypass $TLS_STORE_PASS -storepass $TLS_STORE_PASS
