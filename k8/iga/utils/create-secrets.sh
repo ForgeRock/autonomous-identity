@@ -261,6 +261,6 @@ create_certs() {
 }
 
 generate_certs
-#create_certs
+create_certs
 
 
