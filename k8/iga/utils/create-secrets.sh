@@ -4,14 +4,12 @@ set -x
 
 WORKDIR='/app'
 
-generate_password () {
-    local pass=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-12} | head -n 1`
-    echo "$pass"
-}
+# Create random password
+TLS_STORE_PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-12} | head -n 1`
+SIGNATURE=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-12} | head -n 1`
 
 generate_certs () {
-    # Create random password
-    TLS_STORE_PASS=$(generate_password)
+
 
     # Generate root CA
     openssl genrsa -out $WORKDIR/rootCA.key 2048
@@ -39,8 +37,7 @@ generate_certs () {
     python3 convertPEMtoJson.py
 
     #signature
-    generate_password > $WORKDIR/signaturesecret.txt
-    echo 'TLS_STORE_PASS: ' $TLS_STORE_PASS
+    echo $SIGNATURE > $WORKDIR/signaturesecret.txt
 
     # nginx / ingress
     openssl genrsa -out $WORKDIR/ingress-key.pem 2048
@@ -263,4 +260,5 @@ create_certs() {
 generate_certs
 create_certs
 
+echo 'TLS_STORE_PASS: ' $TLS_STORE_PASS
 
