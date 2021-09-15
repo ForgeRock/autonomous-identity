@@ -1,5 +1,0 @@
----
-resources:
-- iga_confd_config_map.yaml
-- iga_ui_deployment.yaml
-- iga_ui_service.yaml

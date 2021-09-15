@@ -1,4 +1,0 @@
----
-resources:
-- etl_config_map.yaml
-- etl_secret.yaml

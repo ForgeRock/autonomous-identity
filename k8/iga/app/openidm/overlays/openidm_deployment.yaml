@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/forgerock-autoid/ci/jnw/a-2468/openidm:369479543
+        - image: gcr.io/forgerock-autoid/ci/jnw/narrow-publish-scope/openidm:371439132
           name: openidm
           env:
           - name: PG_OPENIDM_USER
@@ -36,5 +36,5 @@ spec:
       - name: idm-secrets
         secret:
           defaultMode: 420
-          secretName: idm-secrets
+          secretName: openidm
 
