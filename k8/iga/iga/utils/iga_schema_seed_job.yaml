@@ -1,0 +1,16 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: iga-schema-seed-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: iga-schema-seed-job
+        image: gcr.io/forgerock-autoid/ci/jnw/narrow-publish-scope/iga-demo-data:371428503
+        command: ["bash","-c","/opt/iga-seed-data/script/conf/confLoader.py"]
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: autoid-registry
+  backoffLimit: 1

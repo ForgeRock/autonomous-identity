@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iga-api-cm
+data:
+  JAS_TENANT_ID: #JAS_TENANT_ID# ## provisioned by user
+  ETL_RUNNER: #ETL_RUNNER#

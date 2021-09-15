@@ -1,0 +1,12 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iga-ui
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/forgerock-autoid/ci/jnw/narrow-publish-scope/iga-ui:371428503
+        name: iga-ui
+        

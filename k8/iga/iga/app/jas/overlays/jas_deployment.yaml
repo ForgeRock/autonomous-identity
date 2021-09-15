@@ -1,0 +1,11 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jasnode
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/forgerock-autoid/ci/jnw/narrow-publish-scope/jas:371428503
+        name: jasnode
