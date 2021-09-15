@@ -63,7 +63,7 @@ data:
                 "config" : {
                     "name" : "jas",
                     "tenantId" : "#JAS_TENANT_ID#",
-                    "jasUrl" : "https://jasnode:10081",
+                    "jasUrl" : "https://jas:10081",
                     "nameSpace" : "openidm",
                     "parserClass" : "org.forgerock.audit.handlers.jas.OpenIdmEventParser",
                     "topicMetaFields" : {

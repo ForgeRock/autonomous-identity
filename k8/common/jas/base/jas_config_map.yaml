@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: jasnode-cm
+  name: jas-cm
   labels:
-    app: jasnode
+    app: jas
     product: autoid
 data:
   CADENCE_HOST: "cadence"

@@ -2,35 +2,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jasnode
+  name: jas
   labels:
-    app: jasnode
+    app: jas
     product: autoid
 spec:
   selector:
     matchLabels:
-      app: jasnode
+      app: jas
       product: autoid
   template:
     metadata:
       labels:
-        app: jasnode
+        app: jas
         product: autoid
     spec:
       containers:
       - image: ""
-        name: jasnode
+        name: jas
         resources:
           limits:
             memory: "3072Mi"
         envFrom:
-          - configMapRef: { name: jasnode-cm }
-          - secretRef: { name: jasnode-env }
+          - configMapRef: { name: jas-cm }
+          - secretRef: { name: jas-env }
         volumeMounts:
           - mountPath: /tls-cert/
-            name: jasnode-tls-certs
+            name: jas-tls-certs
           - mountPath: /signature/
-            name: jasnode-signature
+            name: jas-signature
           - mountPath: /opt/autoid/mounts/jwt/
             name: jwt-certs
       imagePullSecrets:
@@ -39,11 +39,11 @@ spec:
       - name: jwt-certs
         secret:
           secretName: api-jwt-certs
-      - name: jasnode-tls-certs
+      - name: jas-tls-certs
         secret:
-          secretName: jasnode-tls-certs
-      - name: jasnode-signature
+          secretName: jas-tls-certs
+      - name: jas-signature
         secret:
-          secretName: jasnode-signature
+          secretName: jas-signature
       serviceAccount: iga-workload-identity
           

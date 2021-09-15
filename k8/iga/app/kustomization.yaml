@@ -9,12 +9,14 @@ bases:
 - ../../common/prometheus-metrics/base
 - iga-api/base
 - iga-ui/base
+- iga-platform-ui/base
 
 patchesStrategicMerge:
 - iga-api/overlays/iga_api_config_map.yaml
 - iga-api/overlays/iga_api_deployment.yaml
 - iga-api/overlays/iga_api_secret.yaml
 - iga-ui/overlays/iga_ui_deployment.yaml
+- iga-platform-ui/overlays/deployment.yaml
 - jas/overlays/jas_config_map.yaml
 - jas/overlays/jas_deployment.yaml
 - jas/overlays/jas_secret.yaml

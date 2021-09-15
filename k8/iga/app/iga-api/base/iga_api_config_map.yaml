@@ -10,7 +10,7 @@ data:
   GOV_USER_NAME: "gov-admin"
   OPENIDM_ENDPOINT: "https://openidm:8443/openidm/"
   OPENIDM_USERNAME: "openidm-admin"
-  JAS_ENDPOINT: "https://jasnode:10081/"
+  JAS_ENDPOINT: "https://jas:10081/"
   JAS_TENANT_ID: 
   JAS_ROOT_CA_CERT: "/jas-tls/rootCA.pem"
   NODE_EXTRA_CA_CERTS: "/jas-tls/rootCA.pem"
