@@ -41,6 +41,7 @@ sed -ibackup "s|#DOMAIN_NAME#|${DOMAIN_NAME}|"                                  
 sed -ibackup "s|#ES_HOST#|${ES_HOST}|"                                                            app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#ES_PRIMARY_SHARDS_PER_INDEX#|${ES_PRIMARY_SHARDS_PER_INDEX}|"                    app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#ES_REPLICA_SHARDS_PER_INDEX#|${ES_REPLICA_SHARDS_PER_INDEX}|"                    app/jas/overlays/jas_config_map.yaml
+sed -ibackup "s|#ES_SSL_ENABLED#|${ES_SSL_ENABLED}|"                                              app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#ES_PASSWORD#|${ES_PASSWORD_ENC}|"                                                app/jas/overlays/jas_secret.yaml
 sed -ibackup "s|#ES_USERNAME#|${ES_USERNAME_ENC}|"                                                app/jas/overlays/jas_secret.yaml
 sed -ibackup "s|#GCP_PROJECT#|${GCP_PROJECT_ID}|"                                                 app/jas/overlays/jas_config_map.yaml
@@ -75,6 +76,7 @@ sed -ibackup "s|#SECRET_ALIAS_JAS_TLS_TRUSTSTORE#|${SECRET_ALIAS_JAS_TLS_TRUSTST
 sed -ibackup "s|#TLS_STORE_PASS#|${TLS_STORE_PASS_ENC}|"                                          app/jas/overlays/jas_secret.yaml
 sed -ibackup "s|#ES_HOST#|${ES_HOST}|"                                                            app/etl/overlays/etl_config_map.yaml
 sed -ibackup "s|#ES_PORT#|${ES_PORT}|"                                                            app/etl/overlays/etl_config_map.yaml
+sed -ibackup "s|#ES_SSL_ENABLED#|${ES_SSL_ENABLED}|"                                              app/etl/overlays/etl_config_map.yaml
 sed -ibackup "s|#ES_PASSWORD#|${ES_PASSWORD_ENC}|"                                                app/etl/overlays/etl_secret.yaml
 sed -ibackup "s|#ES_USERNAME#|${ES_USERNAME_ENC}|"                                                app/etl/overlays/etl_secret.yaml
 sed -ibackup "s|#TLS_STORE_PASS#|${TLS_STORE_PASS_ENC}|"                                          app/etl/overlays/etl_secret.yaml
