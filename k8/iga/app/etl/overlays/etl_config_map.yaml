@@ -9,3 +9,4 @@ metadata:
 data:
   ES_HOST: "#ES_HOST#"
   ES_PORT: "#ES_PORT#"
+  ES_SSL_ENABLED: "#ES_SSL_ENABLED#"

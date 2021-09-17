@@ -26,7 +26,6 @@ patchesStrategicMerge:
 - nginx/overlays/nginx_config_map.yaml
 - openidm/overlays/openidm_config_map.yaml
 - openidm/overlays/openidm_deployment.yaml
-- openidm/overlays/openidm_secret.yaml
 - prometheus-metrics/overlays/prometheus-metrics_deployment.yaml
 - prometheus-metrics/overlays/prometheus-metrics_config_map.yaml
 
