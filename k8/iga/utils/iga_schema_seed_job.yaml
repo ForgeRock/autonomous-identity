@@ -8,8 +8,11 @@ spec:
     spec:
       containers:
       - name: iga-schema-seed-job
-        image: gcr.io/forgerock-autoid/ci/develop/iga-demo-data:372310121
+        image: gcr.io/forgerock-autoid/ci/jnw/2468/iga-demo-data:372336604
         command: ["bash","-c","/opt/iga-seed-data/script/conf/confLoader.py"]
+        env:
+          - name: OPENIDM_ADMIN_PASSWORD
+            value: #OPENIDM_ADMIN_PASSWORD# ## pro
       restartPolicy: Never
       imagePullSecrets:
         - name: autoid-registry

@@ -53,10 +53,6 @@
         "password" : "&{openidm.admin.password}"
       },
       {
-        "id" : "anonymous",
-        "password" : "anonymous"
-      },
-      {
         "id" : "idm-provisioning"
       }
     ]
