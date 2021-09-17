@@ -2,15 +2,15 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: iga-schema-seed-job
+  name: iga_readonly_ldap_seed_job
 spec:
   template:
     spec:
       containers:
-      - name: iga-schema-seed-job
+      - name: iga_readonly_ldap_seed_job
         image: gcr.io/forgerock-autoid/ci/develop/iga-demo-data:372821812
-        command: ["bash","-c","/opt/iga-seed-data/script/conf/confLoader.py"]
+        command: ["bash","-c","/opt/iga-seed-data/script/conf/ldapAppOnboarding.py"]
       restartPolicy: Never
       imagePullSecrets:
-        - name: autoid-registry
+        - name: autodid-registry
   backoffLimit: 1
