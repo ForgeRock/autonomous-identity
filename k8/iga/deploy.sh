@@ -30,7 +30,6 @@ source ./config.env
 ES_USERNAME_ENC=`echo -n $ES_USERNAME | base64`
 ES_PASSWORD_ENC=`echo -n $ES_PASSWORD | base64`
 TLS_STORE_PASS_ENC=`echo -n $TLS_STORE_PASS | base64`
-OPENIDM_ADMIN_PASSWORD_ENC=`echo -n openidm-admin | base64`
 OPENIDM_ADMIN_PASSWORD_ENC=`echo -n $OPENIDM_ADMIN_PASSWORD | base64`
 
 sed -i .template "s|#CLOUD_DATASTORE_PROJECT_ID#|${GCP_PROJECT_ID}|"                                  app/jas/overlays/jas_config_map.yaml
