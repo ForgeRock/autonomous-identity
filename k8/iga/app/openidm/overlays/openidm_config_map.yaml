@@ -181,7 +181,7 @@ data:
       "name": "mainKeyStore",
       "class": "org.forgerock.openidm.secrets.config.FileBasedStore",
       "config": {
-        "file": "&{openidm.keystore.location|/var/run/secrets/idm/keystore.jceks}",
+        "file": "&{openidm.keystore.location|/var/run/secrets/idm/openidm-client-keystore.jks}",
         "storetype": "&{openidm.keystore.type|JCEKS}",
         "providerName": "&{openidm.keystore.provider|SunJCE}",
         "storePassword": "&{openidm.keystore.password|changeit}",
@@ -228,7 +228,7 @@ data:
       "name": "mainTrustStore",
       "class": "org.forgerock.openidm.secrets.config.FileBasedStore",
       "config": {
-        "file": "&{openidm.truststore.location|/var/run/secrets/idm/truststore}",
+        "file": "&{openidm.truststore.location|/var/run/secrets/idm/openidm-server-truststore.jks}",
         "storetype": "&{openidm.truststore.type|JKS}",
         "providerName": "&{openidm.truststore.provider|SUN}",
         "storePassword": "&{openidm.truststore.password|changeit}",

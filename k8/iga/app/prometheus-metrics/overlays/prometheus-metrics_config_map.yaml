@@ -23,6 +23,6 @@ data:
         scheme: http
         basic_auth:
           username: 'prometheus'
-          password: 'prometheus'
+          password: '#PROMETHEUS_BASIC_AUTH#'
         static_configs:
         - targets: ['openidm.iga.svc.cluster.local:8080']
