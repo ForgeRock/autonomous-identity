@@ -268,8 +268,8 @@ data:
         add_header          X-XSS-Protection "1; mode=block" always;
 
         #SSL Settings
-        ssl_certificate     /etc/nginx/cert/ingress-cert.pem;
-        ssl_certificate_key /etc/nginx/cert/ingress-key.pem;
+        ssl_certificate     /etc/nginx/cert/fullchain.pem;
+        ssl_certificate_key /etc/nginx/cert/privkey.pem;
         ssl_ciphers         EECDH+AESGCM:EDH+AESGCM:ECDHE-RSA-CHACHA20-POLY1305;
         ssl_ecdh_curve      secp384r1;
         ssl_protocols       TLSv1.2;

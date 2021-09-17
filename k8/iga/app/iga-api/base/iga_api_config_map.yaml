@@ -16,4 +16,3 @@ data:
   NODE_EXTRA_CA_CERTS: "/jas-tls/rootCA.pem"
   ETL_RUNNER: "k8"
   OIDC_JWKS_URI: "" 
-  OIDC_JWKS_URI: false
