@@ -37,6 +37,7 @@ OPENIDM_ADMIN_PASSWORD_ENC=`echo -n openidm-admin | base64`
 sed -ibackup "s|#CLOUD_DATASTORE_PROJECT_ID#|${GCP_PROJECT_ID}|"                                  app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#DATAFLOW_PROJECT_ID#|${GCP_PROJECT_ID}|"                                         app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#DATAFLOW_WORKER_SERVICE_ACCOUNT#|${DATAFLOW_WORKER_SERVICE_ACCOUNT}|"            app/jas/overlays/jas_config_map.yaml
+sed -ibackup "s|#DATAFLOW_ETL_CONFIG_LOCATION#|${DATAFLOW_ETL_CONFIG_LOCATION}|"                  app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#DOMAIN_NAME#|${DOMAIN_NAME}|"                                                    app/nginx/overlays/nginx_config_map.yaml
 sed -ibackup "s|#ES_HOST#|${ES_HOST}|"                                                            app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#ES_PRIMARY_SHARDS_PER_INDEX#|${ES_PRIMARY_SHARDS_PER_INDEX}|"                    app/jas/overlays/jas_config_map.yaml
