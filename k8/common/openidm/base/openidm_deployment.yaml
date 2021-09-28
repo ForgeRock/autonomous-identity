@@ -34,6 +34,18 @@ spec:
           - name: OPENIDM_OPTS
             value:
           volumeMounts:
+            - mountPath: /opt/openidm/script/idm-iga-api-handler.js
+              name: idm-iga-api-handler-js
+              subPath: idm-iga-api-handler.js
+            - mountPath: /opt/openidm/workflow/iga-basic-revocation.bpmn20.xml
+              name: iga-basic-revocation-bpmn20-xml
+              subPath: iga-basic-revocation.bpmn20.xml
+            - mountPath: /opt/openidm/conf/endpoint-iga-api.json
+              name: endpoint-iga-api-json
+              subPath: endpoint-iga-api.json
+            - mountPath: /opt/openidm/conf/workflow.json
+              name: workflow-json
+              subPath: workflow.json
             - mountPath: /opt/openidm/conf/audit.json
               name: idm-conf-audit
               subPath: audit.json
@@ -74,6 +86,18 @@ spec:
         - name: schedule-handler
           configMap:
             name: schedule-handler
+        - name: workflow-json
+          configMap:
+            name: workflow-json
+        - name: endpoint-iga-api-json
+          configMap:
+            name: endpoint-iga-api-json
+        - name: idm-iga-api-handler-js
+          configMap:
+            name: idm-iga-api-handler-js
+        - name: iga-basic-revocation-bpmn20-xml
+          configMap:
+            name: iga-basic-revocation-bpmn20-xml
         - name: conf-folder
           persistentVolumeClaim:
             claimName: openidm-pvc

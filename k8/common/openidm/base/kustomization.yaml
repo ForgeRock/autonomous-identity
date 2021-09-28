@@ -7,4 +7,22 @@ resources:
 - openidm_secret.yaml
 - openidm_schedule_handler.yaml
 
+configMapGenerator:
+
+  - name: workflow-json
+    files:
+      - workflow.json
+
+  - name: endpoint-iga-api-json
+    files:
+      - endpoint-iga-api.json
+
+  - name: idm-iga-api-handler-js
+    files:
+      - idm-iga-api-handler.js
+
+  - name: iga-basic-revocation-bpmn20-xml
+    files:
+      -  iga-basic-revocation.bpmn20.xml
+
 
