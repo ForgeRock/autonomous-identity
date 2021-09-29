@@ -7,13 +7,19 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/forgerock-autoid/ci/develop/openidm:379455229
+        - image: gcr.io/forgerock-autoid/ci/develop/openidm:379654146
           name: openidm
           env:
           - name: PG_OPENIDM_USER
-            value: #PG_OPENIDM_USER# ## provisioned by user
+            valueFrom:
+              secretKeyRef:
+                name: openidm-database
+                key: PG_OPENIDM_USER
           - name: PG_OPENIDM_USER_PASSWORD
-            value: #PG_OPENIDM_USER_PASSWORD# ## provisioned by user
+            valueFrom:
+              secretKeyRef:
+                name: openidm-database
+                key: PG_OPENIDM_USER_PASSWORD
           - name: PGHOST
             value: #PG_HOST# ## provisioned by user
           - name: PG_ROOT_PASSWORD
@@ -28,6 +34,9 @@ spec:
           - mountPath: /opt/openidm/conf/secrets.json
             name: secrets-json
             subPath: secrets.json
+          - mountPath: /opt/openidm/conf/datasource.jdbc-default.json
+            name: openidm-conf-datasource
+            subPath: datasource.jdbc-default.json
       volumes:
       - name: secrets-json
         configMap:
@@ -37,4 +46,11 @@ spec:
         secret:
           defaultMode: 420
           secretName: openidm
+      - name: openidm-conf-datasource
+        secret:
+          secretName: openidm-conf-datasource
+          items:
+            - key: datasource.jdbc-default.json
+              path: datasource.jdbc-default.json
+
 

@@ -57,14 +57,16 @@ spec:
             - mountPath: /opt/openidm/conf/repo.init.json
               name: idm-conf-repo
               subPath: repo.init.json
-            - mountPath: /opt/openidm/conf/datasource.jdbc-default.json
+            - mountPath: /opt/openidm/conf
               name: openidm-conf-datasource
-              subPath: datasource.jdbc-default.json
             - mountPath: /opt/openidm/script/scheduleHandler.js
               name: schedule-handler
               subPath: scheduleHandler.js
             - name: conf-folder
               mountPath: /opt/openidm/conf
+            - name: openidm-conf-datasource
+              mountPath: /opt/openidm/conf/datasource.jdbc-default.json
+              subPath: datasource.jdbc-default.json  
       imagePullSecrets:
         - name: autoid-registry
       volumes:
@@ -75,8 +77,11 @@ spec:
           configMap:
             name: idm-conf-repo
         - name: openidm-conf-datasource
-          configMap:
-            name: openidm-conf-datasource
+          secret:
+            secretName: openidm-conf-datasource
+            items:
+              - key: datasource.jdbc-default.json
+                path: datasource.jdbc-default.json
         - name: idm-resolver-boot-properties
           secret:
             secretName: idm-resolver-boot-properties

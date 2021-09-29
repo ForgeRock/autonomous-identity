@@ -26,3 +26,7 @@ configMapGenerator:
       -  iga-basic-revocation.bpmn20.xml
 
 
+secretGenerator:
+  - name: openidm-conf-datasource
+    files:
+      - datasource.jdbc-default.json

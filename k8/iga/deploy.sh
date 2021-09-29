@@ -58,10 +58,6 @@ sed -ibackup "s|#OPENIDM_ADMIN_PASSWORD#|${OPENIDM_ADMIN_PASSWORD_ENC}|"        
 sed -ibackup "s|#OPENIDM_ADMIN_PASSWORD#|openidm-admin|"                                          app/openidm/overlays/boot.properties
 sed -ibackup "s|#OPENIDM_PROMETHEUS_PASSWORD#|prometheus|"                                        app/openidm/overlays/boot.properties
 sed -ibackup "s|#PG_HOST#|${PG_HOST}|"                                                            app/openidm/overlays/openidm_deployment.yaml
-sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|openidm|"                                              app/openidm/overlays/openidm_config_map.yaml
-sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|openidm|"                                              app/openidm/overlays/openidm_deployment.yaml
-sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                                       app/openidm/overlays/openidm_config_map.yaml
-sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                                       app/openidm/overlays/openidm_deployment.yaml
 sed -ibackup "s|#PG_ROOT_PASSWORD#|${PG_ROOT_PASSWORD}|"                                          app/openidm/overlays/openidm_deployment.yaml
 sed -ibackup "s|#SECRET_ALIAS_ES_KEYSTORE_PASSWORD#|${SECRET_ALIAS_ES_KEYSTORE_PASSWORD}|"        app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#SECRET_ALIAS_ES_KEYSTORE#|${SECRET_ALIAS_ES_KEYSTORE}|"                          app/jas/overlays/jas_config_map.yaml
@@ -81,6 +77,10 @@ sed -ibackup "s|#ES_SSL_ENABLED#|${ES_SSL_ENABLED}|"                            
 sed -ibackup "s|#ES_PASSWORD#|${ES_PASSWORD_ENC}|"                                                app/etl/overlays/etl_secret.yaml
 sed -ibackup "s|#ES_USERNAME#|${ES_USERNAME_ENC}|"                                                app/etl/overlays/etl_secret.yaml
 sed -ibackup "s|#TLS_STORE_PASS#|${TLS_STORE_PASS_ENC}|"                                          app/etl/overlays/etl_secret.yaml
+sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                  app/openidm/overlays/datasource.jdbc-default.json
+sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm/overlays/datasource.jdbc-default.json
+sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                  app/openidm/overlays/openidm_database.env
+sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm/overlays/openidm_database.env
 
 kubectl -n iga apply -k ${kustomize_dir}/
 echo "Waiting for services to start..."

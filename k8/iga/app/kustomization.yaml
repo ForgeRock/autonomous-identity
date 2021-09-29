@@ -29,3 +29,11 @@ patchesStrategicMerge:
 - prometheus-metrics/overlays/prometheus-metrics_deployment.yaml
 - prometheus-metrics/overlays/prometheus-metrics_config_map.yaml
 
+secretGenerator:
+- name: openidm-conf-datasource
+  behavior: replace
+  files:
+  - openidm/overlays/datasource.jdbc-default.json
+- name: openidm-database
+  envs:
+  - openidm/overlays/openidm_database.env
