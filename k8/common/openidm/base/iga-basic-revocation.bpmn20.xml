@@ -10,18 +10,21 @@ def lineItem = content.lineItems[0]
 
 if (lineItem.item.type == 'ResourceGrant') {
   def entitlementId = lineItem.resource.id
-  def applicationId = lineItem.application.id
+  def accountId = lineItem.account.id
   def params = [:];
   def entitlement = openidm.action('iga/governance/resource/' + entitlementId, 'GET', params)
   def entitlementProperty = entitlement.igaContent.entitlementProperty;
   def body = [:];
   body.entitlementProperty = entitlementProperty
   body.deprovisionEntitlements = [ entitlementId ];
-  def result = openidm.action('iga/governance/account/' + applicationId + '/deprovision', 'POST', body);
+  def result = openidm.action('iga/governance/account/' + accountId + '/deprovision', 'POST', body);
   execution.setVariables(result);
 }
 else if (lineItem.item.type == 'AccountGrant') {
-
+  def accountId = lineItem.account.id
+  def body = [:];
+  def result = openidm.action('iga/governance/account/' + accountId, 'DELETE', body);
+  execution.setVariables(result);
 }
       </script>
     </scriptTask>
