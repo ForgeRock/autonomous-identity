@@ -9,13 +9,10 @@ patchesStrategicMerge:
 - openidm_deployment.yaml
 
 secretGenerator:
-  - name: openidm-conf-datasource
-    behavior: replace
-    files:
-      - datasource.jdbc-default.json
-
-secretGenerator:
-- name: openidm-database
+- name: openidm-conf-datasource
   behavior: replace
+  files:
+  - datasource.jdbc-default.json
+- name: openidm-database
   envs:
   - openidm_database.env
