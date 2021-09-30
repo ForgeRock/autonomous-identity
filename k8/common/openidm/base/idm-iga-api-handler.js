@@ -32,7 +32,7 @@ function run() {
 
 function generateUrl(path, queryParams) {
     var url = 'http://iga-api:3005/iga/' + path;
-    if (queryParams != null) {
+    if (queryParams != null && Object.keys(queryParams).length > 0) {
         var params = '';
         if (typeof queryParams === 'object') {
             var paramsList = [];
@@ -68,7 +68,6 @@ function makeExternalCall(path, method, body, queryParams) {
         contentType: 'application/json',
         body: JSON.stringify(body),
       }
-      
       var result = openidm.action("external/rest", "call", params);
       return result;
 }
