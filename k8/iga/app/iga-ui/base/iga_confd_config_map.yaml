@@ -38,7 +38,7 @@ data:
         add_header          X-Frame-Options "SAMEORIGIN" always;
         add_header          X-XSS-Protection "1; mode=block" always;
         resolver kube-dns.kube-system.svc.cluster.local valid=10s;
-        set $upstream http://iga-api.iga.svc.cluster.local:3005;
+        set $upstream http://iga-api.#NAMESPACE#.svc.cluster.local:3005;
         proxy_pass $upstream;
     }
     location ~ ^/openidm/ {
@@ -54,7 +54,7 @@ data:
         add_header          X-Frame-Options "SAMEORIGIN" always;
         add_header          X-XSS-Protection "1; mode=block" always;
         resolver kube-dns.kube-system.svc.cluster.local valid=10s;
-        set $upstream https://openidm.iga.svc.cluster.local:8443;
+        set $upstream https://openidm.#NAMESPACE#.svc.cluster.local:8443;
         proxy_pass $upstream;
     }
      location ~ ^/api/ {
@@ -70,7 +70,7 @@ data:
         add_header          X-Frame-Options "SAMEORIGIN" always;
         add_header          X-XSS-Protection "1; mode=block" always;
         resolver kube-dns.kube-system.svc.cluster.local valid=10s;
-        set $upstream http://zoran-api.iga.svc.cluster.local:8080;
+        set $upstream http://zoran-api.#NAMESPACE#.svc.cluster.local:8080;
         proxy_pass $upstream;
     }
 
@@ -84,7 +84,7 @@ data:
         expires -1;
         add_header Cache-Control no-store;
         resolver kube-dns.kube-system.svc.cluster.local valid=10s;
-        set $upstream https://jas.iga.svc.cluster.local:10081;
+        set $upstream https://jas.#NAMESPACE#.svc.cluster.local:10081;
         rewrite ^/jas/(.*) /$1  break;
         proxy_pass $upstream$uri$is_args$args;
     }

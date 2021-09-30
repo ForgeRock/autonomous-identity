@@ -15,7 +15,7 @@ data:
         scheme: https
         metrics_path: '/metrics'
         static_configs:
-        - targets: ['jas.iga.svc.cluster.local:10081']
+        - targets: ['jas.#NAMESPACE#.svc.cluster.local:10081']
         tls_config:
           insecure_skip_verify: true
       - job_name: 'openidm'
@@ -25,4 +25,4 @@ data:
           username: 'prometheus'
           password: 'prometheus'
         static_configs:
-        - targets: ['openidm.iga.svc.cluster.local:8080']
+        - targets: ['openidm.#NAMESPACE#.svc.cluster.local:8080']

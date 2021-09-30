@@ -82,22 +82,22 @@ sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"  
 sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                  app/openidm/overlays/openidm_database.env
 sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm/overlays/openidm_database.env
 
-kubectl -n iga apply -k ${kustomize_dir}/
+kubectl -n $NAMESPACE apply -k ${kustomize_dir}/
 echo "Waiting for services to start..."
-kubectl -n iga wait --for=condition=available --timeout=60s --all deployments
+kubectl -n $NAMESPACE wait --for=condition=available --timeout=60s --all deployments
 # extra wait time for OpenIDM and JAS services to initialize
 sleep 60
-kubectl -n iga create -f utils/iga_schema_seed_job.yaml
+kubectl -n $NAMESPACE create -f utils/iga_schema_seed_job.yaml
 echo "Waiting for schema seeding job to run..."
 sleep 30
-kubectl -n iga logs -f --ignore-errors=true  job/iga-schema-seed-job
+kubectl -n $NAMESPACE logs -f --ignore-errors=true  job/iga-schema-seed-job
 
 
 echo "Waiting for external IP address"
 
 ip=""
 while [ -z $ip ]; do
-  ip=$(kubectl get svc nginx --namespace iga --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
+  ip=$(kubectl get svc nginx --namespace $NAMESPACE --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
   [ -z "$ip" ] && sleep 10
 done
 
@@ -109,4 +109,3 @@ printf "${COLOR_OFF}"
 
 echo "--------"
 echo " "
-
