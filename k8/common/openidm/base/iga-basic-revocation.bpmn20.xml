@@ -26,6 +26,12 @@ else if (lineItem.item.type == 'AccountGrant') {
   def result = openidm.action('iga/governance/account/' + accountId, 'DELETE', body);
   execution.setVariables(result);
 }
+else if (lineItem.item.type == 'roleMembership') {
+  def roleId = lineItem.role.id
+  det userId = lineItem.user.id
+  def result = openidm.delete('managed/user/' + userId + '/roles/' + roleId, null);
+  execution.setVariables(result);
+}
       </script>
     </scriptTask>
     <sequenceFlow id="flow1" sourceRef="scripttask0" targetRef="endevent1"></sequenceFlow>
