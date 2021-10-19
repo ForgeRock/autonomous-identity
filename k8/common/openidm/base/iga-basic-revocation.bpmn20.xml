@@ -28,7 +28,7 @@ else if (lineItem.item.type == 'AccountGrant') {
 }
 else if (lineItem.item.type == 'roleMembership') {
   def roleId = lineItem.role.id
-  det userId = lineItem.user.id
+  def userId = lineItem.user.id
   def result = openidm.delete('managed/user/' + userId + '/roles/' + roleId, null);
   execution.setVariables(result);
 }
