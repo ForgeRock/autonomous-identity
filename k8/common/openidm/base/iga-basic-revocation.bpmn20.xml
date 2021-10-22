@@ -27,9 +27,9 @@ else if (lineItem.item.type == 'AccountGrant') {
   execution.setVariables(result);
 }
 else if (lineItem.item.type == 'roleMembership') {
-  def roleId = lineItem.role.id
   def userId = lineItem.user.id
-  def result = openidm.delete('managed/user/' + userId + '/roles/' + roleId, null);
+  def relationshipId = lineItem.assignment.id
+  def result = openidm.delete('managed/user/' + userId + '/roles/' + relationshipId, null);
   execution.setVariables(result);
 }
       </script>
