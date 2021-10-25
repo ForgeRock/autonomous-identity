@@ -7,5 +7,5 @@ spec:
   template:
     spec:
       containers:
-      - image: gcr.io/forgerock-autoid/ci/develop/jas:394944850
+      - image: gcr.io/forgerock-autoid/ci/develop/jas:394988405
         name: jas
