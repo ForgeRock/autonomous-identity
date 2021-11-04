@@ -49,6 +49,7 @@ sed -ibackup "s|#GKE_CLUSTER_NAME#|${GKE_CLUSTER_NAME}|"                        
 sed -ibackup "s|#ETL_RUNNER#|${ETL_RUNNER}|"                                                      app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/openidm/overlays/openidm_config_map.yaml
+sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/openidm_bootstrap/openidm_config_map.yaml
 sed -ibackup "s|#JAS_URL#|${JAS_URL}|"                                                            app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#OPENIDM_ADMIN_PASSWORD#|${OPENIDM_ADMIN_PASSWORD_ENC}|"                          app/iga-api/overlays/iga_api_secret.yaml
 sed -ibackup "s|#OPENIDM_ADMIN_PASSWORD#|openidm-admin|"                                          app/openidm/overlays/boot.properties
@@ -101,7 +102,7 @@ kubectl -n $NAMESPACE apply -k app/
 echo "Waiting for services to start..."
 kubectl -n $NAMESPACE wait --for=condition=available --timeout=60s --all deployments
 # extra wait time for OpenIDM and JAS services to initialize
-sleep 180
+sleep 90
 kubectl -n $NAMESPACE create -f utils/iga_schema_seed_job.yaml
 echo "Waiting for schema seeding job to run..."
 sleep 60
