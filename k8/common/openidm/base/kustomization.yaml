@@ -1,8 +1,7 @@
 ---
 resources:
 - openidm_config_map.yaml
-- openidm_pvc.yaml
-- openidm_deployment.yaml
+- openidm_statefulset.yaml
 - openidm_service.yaml
 - openidm_secret.yaml
 - openidm_schedule_handler.yaml
@@ -24,9 +23,3 @@ configMapGenerator:
   - name: iga-basic-revocation-bpmn20-xml
     files:
       -  iga-basic-revocation.bpmn20.xml
-
-
-secretGenerator:
-  - name: openidm-conf-datasource
-    files:
-      - datasource.jdbc-default.json

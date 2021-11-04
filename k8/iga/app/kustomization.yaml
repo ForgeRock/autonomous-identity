@@ -25,15 +25,15 @@ patchesStrategicMerge:
 - nginx/overlays/nginx_service.yaml
 - nginx/overlays/nginx_config_map.yaml
 - openidm/overlays/openidm_config_map.yaml
-- openidm/overlays/openidm_deployment.yaml
+- openidm/overlays/openidm_statefulset.yaml
 - prometheus-metrics/overlays/prometheus-metrics_deployment.yaml
 - prometheus-metrics/overlays/prometheus-metrics_config_map.yaml
 
 secretGenerator:
-- name: openidm-conf-datasource
-  behavior: replace
-  files:
-  - openidm/overlays/datasource.jdbc-default.json
-- name: openidm-database
-  envs:
-  - openidm/overlays/openidm_database.env
+  - name: openidm-conf-datasource
+    files:
+      - openidm/overlays/datasource.jdbc-default.json
+
+  - name: openidm-database
+    envs:
+      - openidm/overlays/openidm_database.env

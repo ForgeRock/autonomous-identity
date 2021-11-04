@@ -3,31 +3,27 @@
 YELLOW='\033[0;33m'
 COLOR_OFF='\033[0m'
 
-kustomize_dir=app
-echo " "
-if [ "$#" -eq "0" ]; then
-  printf "Deploying in ${YELLOW}default${COLOR_OFF} mode\n"
-else
-  if [[ $1 == "dev" ]] ; then
-  printf "Deploying in ${YELLOW}dev${COLOR_OFF} mode\n"
-    kustomize_dir=dev
-  elif [[ $1 == "default" ]] ; then
-    print "Deploying in ${YELLOW}default${COLOR_OFF} mode"
-    kustomize_dir=app
-  else
-    echo "Deployment mode $1 is no supported.  Available modes are 'default' and 'dev'\n"
-    exit 1
-  fi
-
-fi
-echo " "
-
-
 cat readme.txt
 echo " "
 
 
 source ./config.env
+
+if [ "$#" -eq "0" ]; then
+  printf "Deploying in ${YELLOW}default${COLOR_OFF} mode\n"
+else
+  if [[ $1 == "dev" ]] ; then
+  printf "Deploying in ${YELLOW}dev${COLOR_OFF} mode...\n"
+    kubectl -n $NAMESPACE apply -k dev/
+  elif [[ $1 == "default" ]] ; then
+    print "Deploying..."
+  else
+    echo "Unknown deployment mode $1.  Available modes are 'default' and 'dev'\n"
+    exit 1
+  fi
+fi
+echo " "
+
 
 ES_USERNAME_ENC=`echo -n $ES_USERNAME | base64`
 ES_PASSWORD_ENC=`echo -n $ES_PASSWORD | base64`
@@ -57,8 +53,10 @@ sed -ibackup "s|#JAS_URL#|${JAS_URL}|"                                          
 sed -ibackup "s|#OPENIDM_ADMIN_PASSWORD#|${OPENIDM_ADMIN_PASSWORD_ENC}|"                          app/iga-api/overlays/iga_api_secret.yaml
 sed -ibackup "s|#OPENIDM_ADMIN_PASSWORD#|openidm-admin|"                                          app/openidm/overlays/boot.properties
 sed -ibackup "s|#OPENIDM_PROMETHEUS_PASSWORD#|prometheus|"                                        app/openidm/overlays/boot.properties
-sed -ibackup "s|#PG_HOST#|${PG_HOST}|"                                                            app/openidm/overlays/openidm_deployment.yaml
-sed -ibackup "s|#PG_ROOT_PASSWORD#|${PG_ROOT_PASSWORD}|"                                          app/openidm/overlays/openidm_deployment.yaml
+sed -ibackup "s|#PG_HOST#|${PG_HOST}|"                                                            app/openidm/overlays/openidm_statefulset.yaml
+sed -ibackup "s|#PG_ROOT_PASSWORD#|${PG_ROOT_PASSWORD}|"                                          app/openidm/overlays/openidm_statefulset.yaml
+sed -ibackup "s|#PG_HOST#|${PG_HOST}|"                                                            app/openidm_bootstrap/openidm_statefulset.yaml
+sed -ibackup "s|#PG_ROOT_PASSWORD#|${PG_ROOT_PASSWORD}|"                                          app/openidm_bootstrap/openidm_statefulset.yaml
 sed -ibackup "s|#SECRET_ALIAS_ES_KEYSTORE_PASSWORD#|${SECRET_ALIAS_ES_KEYSTORE_PASSWORD}|"        app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#SECRET_ALIAS_ES_KEYSTORE#|${SECRET_ALIAS_ES_KEYSTORE}|"                          app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#SECRET_ALIAS_ES_PASSWORD#|${SECRET_ALIAS_ES_PASSWORD}|"                          app/jas/overlays/jas_config_map.yaml
@@ -77,12 +75,29 @@ sed -ibackup "s|#ES_SSL_ENABLED#|${ES_SSL_ENABLED}|"                            
 sed -ibackup "s|#ES_PASSWORD#|${ES_PASSWORD_ENC}|"                                                app/etl/overlays/etl_secret.yaml
 sed -ibackup "s|#ES_USERNAME#|${ES_USERNAME_ENC}|"                                                app/etl/overlays/etl_secret.yaml
 sed -ibackup "s|#TLS_STORE_PASS#|${TLS_STORE_PASS_ENC}|"                                          app/etl/overlays/etl_secret.yaml
-sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                  app/openidm/overlays/datasource.jdbc-default.json
+sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                                       app/openidm/overlays/datasource.jdbc-default.json
 sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm/overlays/datasource.jdbc-default.json
-sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                  app/openidm/overlays/openidm_database.env
+sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                                       app/openidm/overlays/openidm_database.env
 sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm/overlays/openidm_database.env
 
-kubectl -n $NAMESPACE apply -k ${kustomize_dir}/
+sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                                       app/openidm_bootstrap/datasource.jdbc-default.json
+sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm_bootstrap/datasource.jdbc-default.json
+sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                                       app/openidm_bootstrap/openidm_database.env
+sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm_bootstrap/openidm_database.env
+sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                                       app/openidm_bootstrap/openidm_statefulset.yaml
+sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm_bootstrap/openidm_statefulset.yaml
+
+echo "Initiating openidm bootstrap process"
+# bootstrap_openidm.sh <namespace>
+./bootstrap_openidm.sh $NAMESPACE
+if [ $? -ne 0 ]
+    then
+        echo "ERROR: Failed to bootstrap openidm. Unable to continue!"
+        exit 1
+fi
+
+kubectl -n $NAMESPACE apply -k app/
+
 echo "Waiting for services to start..."
 kubectl -n $NAMESPACE wait --for=condition=available --timeout=60s --all deployments
 # extra wait time for OpenIDM and JAS services to initialize
@@ -91,7 +106,6 @@ kubectl -n $NAMESPACE create -f utils/iga_schema_seed_job.yaml
 echo "Waiting for schema seeding job to run..."
 sleep 60
 kubectl -n $NAMESPACE logs -f --ignore-errors=true  job/iga-schema-seed-job
-
 
 echo "Waiting for external IP address"
 

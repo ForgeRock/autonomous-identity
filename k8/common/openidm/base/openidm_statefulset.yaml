@@ -1,12 +1,14 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: openidm
   labels:
     app: autoid-openidm
     product: autoid
 spec:
+  replicas: 1
+  serviceName: openidm
   selector:
     matchLabels:
       app: autoid-openidm
@@ -57,16 +59,12 @@ spec:
             - mountPath: /opt/openidm/conf/repo.init.json
               name: idm-conf-repo
               subPath: repo.init.json
-            - mountPath: /opt/openidm/conf
-              name: openidm-conf-datasource
             - mountPath: /opt/openidm/script/scheduleHandler.js
               name: schedule-handler
               subPath: scheduleHandler.js
-            - name: conf-folder
-              mountPath: /opt/openidm/conf
             - name: openidm-conf-datasource
               mountPath: /opt/openidm/conf/datasource.jdbc-default.json
-              subPath: datasource.jdbc-default.json  
+              subPath: datasource.jdbc-default.json
       imagePullSecrets:
         - name: autoid-registry
       volumes:
@@ -103,7 +101,5 @@ spec:
         - name: iga-basic-revocation-bpmn20-xml
           configMap:
             name: iga-basic-revocation-bpmn20-xml
-        - name: conf-folder
-          persistentVolumeClaim:
-            claimName: openidm-pvc
+
 
