@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/forgerock-autoid/ci/develop/openidm:403347592
+        - image: gcr.io/forgerock-autoid/ci/develop/openidm:403354526
           name: openidm
           env:
           - name: PG_OPENIDM_USER
