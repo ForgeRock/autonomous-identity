@@ -18,14 +18,14 @@ spec:
         product: autoid
     spec:
       containers:
-      - image: 
-        name: iga-ui
-        volumeMounts:
-        - mountPath: /etc/nginx/conf.d/
-          name: iga-nginx-confd
+        - image:
+          name: iga-ui
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d/
+              name: iga-nginx-confd
       imagePullSecrets:
         - name: autoid-registry
       volumes:
-      - name: iga-nginx-confd
-        configMap:
-          name: iga-nginx-confd
+        - name: iga-nginx-confd
+          configMap:
+            name: iga-nginx-confd

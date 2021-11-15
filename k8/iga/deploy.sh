@@ -48,7 +48,15 @@ sed -ibackup "s|#GCP_REGION#|${GCP_REGION}|"                                    
 sed -ibackup "s|#GKE_CLUSTER_NAME#|${GKE_CLUSTER_NAME}|"                                          app/prometheus-metrics/overlays/prometheus-metrics_deployment.yaml
 sed -ibackup "s|#ETL_RUNNER#|${ETL_RUNNER}|"                                                      app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/iga-api/overlays/iga_api_config_map.yaml
+sed -ibackup "s|#OIDC_ENABLED#|${OIDC_ENABLED}|"                                                  app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/openidm/overlays/openidm_config_map.yaml
+sed -ibackup "s|#AUTHORIZATION_ENDPOINT#|${AUTHORIZATION_ENDPOINT}|"                              app/openidm/overlays/openidm_config_map.yaml
+sed -ibackup "s|#TOKEN_ENDPOINT#|${TOKEN_ENDPOINT}|"                                              app/openidm/overlays/openidm_config_map.yaml
+sed -ibackup "s|#USER_INFO_ENDPOINT#|${USER_INFO_ENDPOINT}|"                                      app/openidm/overlays/openidm_config_map.yaml
+sed -ibackup "s|#CLIENT_ID#|${CLIENT_ID}|"                                                        app/openidm/overlays/openidm_config_map.yaml
+sed -ibackup "s|#CLIENT_SECRET#|${CLIENT_SECRET}|"                                                app/openidm/overlays/openidm_config_map.yaml
+sed -ibackup "s|#SCOPE#|${SCOPE}|"                                                                app/openidm/overlays/openidm_config_map.yaml
+sed -ibackup "s|#DOMAIN_NAME#|${DOMAIN_NAME}|"                                                    app/openidm/overlays/openidm_config_map.yaml
 sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/openidm_bootstrap/openidm_config_map.yaml
 sed -ibackup "s|#JAS_URL#|${JAS_URL}|"                                                            app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#OPENIDM_ADMIN_PASSWORD#|${OPENIDM_ADMIN_PASSWORD_ENC}|"                          app/iga-api/overlays/iga_api_secret.yaml
