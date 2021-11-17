@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: iga_readonly_ldap_seed_job
-        image: gcr.io/forgerock-autoid/ci/develop/iga-demo-data:410823606
+        image: gcr.io/forgerock-autoid/ci/develop/iga-demo-data:410893520
         command: ["bash","-c","/opt/iga-seed-data/script/conf/ldapAppOnboarding.py"]
       restartPolicy: Never
       imagePullSecrets:
