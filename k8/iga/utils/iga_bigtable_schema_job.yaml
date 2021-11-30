@@ -8,10 +8,12 @@ spec:
     spec:
       containers:
         - name: iga-datastore-schema-job
-          image: gcr.io/forgerock-autoid/ci/develop/bigtable-tenancy-initializer:418792678
+          image: gcr.io/forgerock-autoid/ci/develop/bigtable-tenancy-initializer:418794243
           env:
             - name: TENANT_NAME
               value: <ADD HERE> # example: jul-30-test
+            - name: PROJECT_ID
+              value: <PROJECT_ID>
       imagePullSecrets:
         - name: autoid-registry
       restartPolicy: Never
