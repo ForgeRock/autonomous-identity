@@ -31,7 +31,7 @@ export NAMESPACE=${NAMESPACE}
 sh ./apply-secrets.sh
 popd
 
-kubectl -n $NAMESPACE create -f utils/iga_bigtable_schema_job.yaml
+kubectl -n $NAMESPACE create -f utils/iga_datastore_schema_job.yaml
 echo "Waiting for Datastore schema job to start..."
 sleep 30
 kubectl -n $NAMESPACE logs -f --ignore-errors=true job/iga-datastore-schema-job
