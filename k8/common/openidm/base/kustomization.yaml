@@ -4,7 +4,6 @@ resources:
 - openidm_statefulset.yaml
 - openidm_service.yaml
 - openidm_secret.yaml
-- openidm_schedule_handler.yaml
 
 configMapGenerator:
 
@@ -23,3 +22,7 @@ configMapGenerator:
   - name: iga-basic-revocation-bpmn20-xml
     files:
       -  iga-basic-revocation.bpmn20.xml
+
+  - name: schedule-handler
+    files:
+      - scheduleHandler.js
