@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/forgerock-autoid/ci/develop/openidm:419724213
+        - image: gcr.io/forgerock-autoid/ci/develop/openidm:419783360
           name: openidm
           env:
             - name: PG_OPENIDM_USER
@@ -52,9 +52,6 @@ spec:
             - mountPath: /opt/openidm/conf/selfservice-socialUserClaim.json
               name: selfservice-socialuserclaim-json
               subPath: selfservice-socialUserClaim.json
-            - mountPath: /opt/openidm/conf/managed.json
-              name: managed-json
-              subPath: managed.json
             - mountPath: /opt/openidm/conf/datasource.jdbc-default.json
               name: openidm-conf-datasource
               subPath: datasource.jdbc-default.json
@@ -87,10 +84,6 @@ spec:
           configMap:
             defaultMode: 420
             name: openidm-populateasmanageduserfromrelationship-js
-        - name: managed-json
-          configMap:
-            defaultMode: 420
-            name: openidm-managed-json
         - name: idm-secrets
           secret:
             defaultMode: 420
