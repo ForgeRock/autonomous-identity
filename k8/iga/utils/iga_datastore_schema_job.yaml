@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: iga-datastore-schema-job
-          image: gcr.io/forgerock-autoid/ci/develop/tenancy-initializer:421241639
+          image: gcr.io/forgerock-autoid/ci/develop/tenancy-initializer:421299462
           env:
             - name: TENANT_NAME
               value: <ADD HERE> # example: jul-30-test
