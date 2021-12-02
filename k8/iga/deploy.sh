@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Usage:
+# For Datastore:
+# ./deploy.sh dev
+# For BigTable:
+# ./deploy.sh dev bigtable
+
 YELLOW='\033[0;33m'
 COLOR_OFF='\033[0m'
 
@@ -24,6 +30,8 @@ else
 fi
 echo " "
 
+DATABASE=${2:-datastore}
+echo "Preferred database: ${DATABASE}"
 
 ES_USERNAME_ENC=`echo -n $ES_USERNAME | base64`
 ES_PASSWORD_ENC=`echo -n $ES_PASSWORD | base64`
@@ -31,6 +39,8 @@ TLS_STORE_PASS_ENC=`echo -n $TLS_STORE_PASS | base64`
 OPENIDM_ADMIN_PASSWORD_ENC=`echo -n openidm-admin | base64`
 
 sed -ibackup "s|#CLOUD_DATASTORE_PROJECT_ID#|${GCP_PROJECT_ID}|"                                  app/jas/overlays/jas_config_map.yaml
+sed -ibackup "s|#BIG_TABLE_PROJECT_ID#|${GCP_PROJECT_ID}|"                                        app/jas/overlays/jas_config_map.yaml
+sed -ibackup "s|#BIG_TABLE_INSTANCE_ID#|${BIG_TABLE_INSTANCE_ID}|"                                app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#DATAFLOW_PROJECT_ID#|${GCP_PROJECT_ID}|"                                         app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#DATAFLOW_WORKER_SERVICE_ACCOUNT#|${DATAFLOW_WORKER_SERVICE_ACCOUNT}|"            app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#DATAFLOW_ETL_CONFIG_LOCATION#|${DATAFLOW_ETL_CONFIG_LOCATION}|"                  app/jas/overlays/jas_config_map.yaml
@@ -95,6 +105,16 @@ sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                     
 sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm_bootstrap/openidm_database.env
 sed -ibackup "s|#PG_OPENIDM_USER#|openidm|"                                                       app/openidm_bootstrap/openidm_statefulset.yaml
 sed -ibackup "s|#PG_OPENIDM_USER_PASSWORD#|${OPENIDM_DATABASE_USER_PASSWORD}|"                    app/openidm_bootstrap/openidm_statefulset.yaml
+
+if [[ $DATABASE == "bigtable" ]]; then
+  sed -ibackup "s|#BIG_TABLE_ENABLED#|true|"             app/jas/overlays/jas_config_map.yaml
+  sed -ibackup "s|#CLOUD_DATASTORE_ENABLED#|false|"      app/jas/overlays/jas_config_map.yaml
+  sed -ibackup "s|#EPS_DB_SOURCE#|bigtable|"             app/jas/overlays/jas_config_map.yaml
+else
+  sed -ibackup "s|#BIG_TABLE_ENABLED#|false|"            app/jas/overlays/jas_config_map.yaml
+  sed -ibackup "s|#CLOUD_DATASTORE_ENABLED#|true|"       app/jas/overlays/jas_config_map.yaml
+  sed -ibackup "s|#EPS_DB_SOURCE#|datastore|"            app/jas/overlays/jas_config_map.yaml
+fi
 
 echo "Initiating openidm bootstrap process"
 # bootstrap_openidm.sh <namespace>
