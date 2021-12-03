@@ -130,7 +130,7 @@ kubectl -n $NAMESPACE apply -k app/
 echo "Waiting for services to start..."
 kubectl -n $NAMESPACE wait --for=condition=available --timeout=60s --all deployments
 # extra wait time for OpenIDM and JAS services to initialize
-sleep 90
+sleep 180
 kubectl -n $NAMESPACE create -f utils/iga_schema_seed_job.yaml
 echo "Waiting for schema seeding job to run..."
 sleep 60
