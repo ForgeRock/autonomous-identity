@@ -46,7 +46,7 @@ if [[ $DATABASE == "bigtable" ]]; then
     printf "Using ${YELLOW}BigTable database${COLOR_OFF} for JAS...\n"
     kubectl -n $NAMESPACE create -f utils/iga_bigtable_schema_job.yaml
     echo "Waiting for BigTable schema job to start..."
-    sleep 30
+    sleep 90
     kubectl -n $NAMESPACE logs -f --ignore-errors=true job/iga-datastore-schema-job
     echo " "
     echo "--------"
@@ -54,7 +54,7 @@ else
     printf "Using ${YELLOW}Cloud Datastore database${COLOR_OFF} for JAS...\n"
     kubectl -n $NAMESPACE create -f utils/iga_datastore_schema_job.yaml
     echo "Waiting for Datastore schema job to start..."
-    sleep 30
+    sleep 60
     kubectl -n $NAMESPACE logs -f --ignore-errors=true job/iga-datastore-schema-job
     echo " "
     echo "--------"
