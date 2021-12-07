@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/forgerock-autoid/ci/develop/openidm:424513330
+        - image: gcr.io/forgerock-autoid/ci/develop/openidm:424553852
           name: openidm
           env:
             - name: PG_OPENIDM_USER
@@ -27,7 +27,7 @@ spec:
             - name: PG_OPENIDM_DATABASE
               value: openidm ## provisioned by user
             - name: OPENIDM_OPTS
-              value: -Xmx1024m -Xms1024m -Dopenidm.repo.host=$(PGHOST) -Dopenidm.repo.port=5432 ## provisioned by user
+              value: -Xmx4096m -Xms4096m -Dopenidm.repo.host=$(PGHOST) -Dopenidm.repo.port=5432 -Dopenidm.config.repo.enabled=true -Dopenidm.fileinstall.enabled=false -Dfelix.fileinstall.enableConfigSave=false ## provisioned by user
           volumeMounts:
             - mountPath: /var/run/secrets/idm
               name: idm-secrets
