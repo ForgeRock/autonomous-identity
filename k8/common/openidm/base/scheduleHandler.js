@@ -15,23 +15,27 @@
 run();
 
 function run() {
+
     if (!scanType) {
-        logger.warn("Global script variable 'scanType' is not defined.");
+        logger.warn("IGA: Global script variable 'scanType' is not defined.");
         return;
+    }
+    else {
+        logger.warn("IGA: Script execution of scan type " + scanType);
     }
     
 
     // Get path of IGA API call
     var path = getApiPath(scanType);
     if (!path) {
-        logger.warn("No path defined for scanType: " + scanType);
+        logger.warn("IGA: No path defined for scanType: " + scanType);
         return;
     }
 
     // Check contents of certain scans and make any adjustments
     if (scanType === 'recon') {
         if (!reconApplication) {
-            logger.warn("Required application not provided for scanType: " + scanType);
+            logger.warn("IGA: Required application not provided for scanType: " + scanType);
             return;
         }
         path = path + '/' + reconApplication.id + '/reconcileAll';
@@ -45,7 +49,7 @@ function run() {
     var date = new Date().toUTCString();
     var header = getAuthorizationHeaderForSchedule(date);
     if (!header) {
-        logger.warn("Could not generate authorization header.");
+        logger.warn("IGA: Could not generate authorization header.");
         return;
     }
 
@@ -55,6 +59,8 @@ function run() {
 }
 
 function makeExternalCall(path, body, date, authorizationHeader) {
+    logger.warn("IGA: Calling endpoint " + path);
+    logger.info("IGA: Sending payload " + JSON.stringify(body));
     var params = {
         url: 'http://iga-api:3005/' + path,
         method: 'POST',
@@ -66,8 +72,9 @@ function makeExternalCall(path, body, date, authorizationHeader) {
         body: JSON.stringify(body),
       }
       
-      var result = openidm.action("external/rest", "call", params);
-      return result;
+    var result = openidm.action("external/rest", "call", params);
+    logger.info("IGA: Result of endpoint " + path + ": " + JSON.stringify(result));
+    return result;
 }
 
 function getApiPath(type) {
