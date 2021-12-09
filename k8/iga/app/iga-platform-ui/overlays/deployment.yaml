@@ -7,6 +7,6 @@ spec:
   template:
     spec:
       containers:
-      - image: gcr.io/forgerock-autoid/ci/develop/iga-platform-ui:426253352
+      - image: gcr.io/forgerock-autoid/ci/develop/iga-platform-ui:426280781
         name: iga-platform-ui
         
