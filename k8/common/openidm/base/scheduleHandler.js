@@ -34,13 +34,27 @@ function run() {
 
     // Check contents of certain scans and make any adjustments
     if (scanType === 'recon') {
-        if (!reconApplication) {
+        let application = null;
+        
+        try {
+            // Safety check on variable presence
+            application = reconApplication;
+        }
+        catch (e) {
             logger.warn("IGA: Required application not provided for scanType: " + scanType);
             return;
         }
-        path = path + '/' + reconApplication.id + '/reconcileAll';
+        path = path + '/' + application.id + '/reconcileAll';
 
-        if (incremental && incremental === true) {
+        var isIncremental = false;
+        try {
+            isIncremental = incremental && incremental === true; 
+        }
+        catch (e) {
+            // If not provided treat as not-incremental
+        }
+
+        if (isIncremental) {
             path += '?incremental=true';
         }
     }
