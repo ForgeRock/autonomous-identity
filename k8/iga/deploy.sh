@@ -22,7 +22,7 @@ else
   printf "Deploying in ${YELLOW}dev${COLOR_OFF} mode...\n"
     kubectl -n $NAMESPACE apply -k dev/
   elif [[ $1 == "default" ]] ; then
-    print "Deploying..."
+    echo "Deploying..."
   else
     echo "Unknown deployment mode $1.  Available modes are 'default' and 'dev'\n"
     exit 1
