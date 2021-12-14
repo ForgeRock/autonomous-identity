@@ -15,6 +15,6 @@ spec:
         product: autoid
     spec:
       containers:
-      - image: gcr.io/forgerock-autoid/ci/develop/iga-api:429549997
+      - image: gcr.io/forgerock-autoid/ci/develop/iga-api:429613921
         name: iga-api      
         
