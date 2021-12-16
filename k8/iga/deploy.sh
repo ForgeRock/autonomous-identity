@@ -72,7 +72,16 @@ sed -ibackup "s|#CLIENT_ID#|${CLIENT_ID}|"                                      
 sed -ibackup "s|#CLIENT_SECRET#|${CLIENT_SECRET}|"                                                app/openidm/overlays/openidm_config_map.yaml
 sed -ibackup "s|#SCOPE#|${SCOPE}|"                                                                app/openidm/overlays/openidm_config_map.yaml
 sed -ibackup "s|#DOMAIN_NAME#|${DOMAIN_NAME}|"                                                    app/openidm/overlays/openidm_config_map.yaml
+sed -ibackup "s|#PLATFORM_UI_SUBDOMAIN#|${PLATFORM_UI_SUBDOMAIN}|"                                app/openidm/overlays/openidm_config_map.yaml
 sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/openidm_bootstrap/openidm_config_map.yaml
+sed -ibackup "s|#AUTHORIZATION_ENDPOINT#|${AUTHORIZATION_ENDPOINT}|"                              app/openidm_bootstrap/openidm_config_map.yaml
+sed -ibackup "s|#TOKEN_ENDPOINT#|${TOKEN_ENDPOINT}|"                                              app/openidm_bootstrap/openidm_config_map.yaml
+sed -ibackup "s|#USER_INFO_ENDPOINT#|${USER_INFO_ENDPOINT}|"                                      app/openidm_bootstrap/openidm_config_map.yaml
+sed -ibackup "s|#CLIENT_ID#|${CLIENT_ID}|"                                                        app/openidm_bootstrap/openidm_config_map.yaml
+sed -ibackup "s|#CLIENT_SECRET#|${CLIENT_SECRET}|"                                                app/openidm_bootstrap/openidm_config_map.yaml
+sed -ibackup "s|#SCOPE#|${SCOPE}|"                                                                app/openidm_bootstrap/openidm_config_map.yaml
+sed -ibackup "s|#DOMAIN_NAME#|${DOMAIN_NAME}|"                                                    app/openidm_bootstrap/openidm_config_map.yaml
+sed -ibackup "s|#PLATFORM_UI_SUBDOMAIN#|${PLATFORM_UI_SUBDOMAIN}|"                                app/openidm_bootstrap/openidm_config_map.yaml
 sed -ibackup "s|#JAS_URL#|${JAS_URL}|"                                                            app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#OPENIDM_ADMIN_PASSWORD#|${OPENIDM_ADMIN_PASSWORD_ENC}|"                          app/iga-api/overlays/iga_api_secret.yaml
 sed -ibackup "s|#OPENIDM_ADMIN_PASSWORD#|openidm-admin|"                                          app/openidm/overlays/boot.properties

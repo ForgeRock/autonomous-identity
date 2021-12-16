@@ -438,7 +438,7 @@ data:
                  "target" : "username"
              }
          ],
-         "redirectUri" : "https://platform-ui.#DOMAIN_NAME#/",
+         "redirectUri" : "https://#PLATFORM_UI_SUBDOMAIN#.#DOMAIN_NAME#/",
          "configClass" : "org.forgerock.oauth.clients.oauth2.OAuth2ClientConfiguration",
          "enabled" : true
         }
