@@ -62,6 +62,9 @@ spec:
             - mountPath: /opt/openidm/script/scheduleHandler.js
               name: schedule-handler
               subPath: scheduleHandler.js
+            - mountPath: /opt/openidm/bin/defaults/script/roles/defaultPostMapping.groovy
+              name: default-post-mapping
+              subPath: defaultPostMapping.groovy
             - name: openidm-conf-datasource
               mountPath: /opt/openidm/conf/datasource.jdbc-default.json
               subPath: datasource.jdbc-default.json
@@ -89,6 +92,9 @@ spec:
         - name: schedule-handler
           configMap:
             name: schedule-handler
+        - name: default-post-mapping
+          configMap:
+            name: default-post-mapping
         - name: workflow-json
           configMap:
             name: workflow-json

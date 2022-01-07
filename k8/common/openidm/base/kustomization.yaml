@@ -26,3 +26,7 @@ configMapGenerator:
   - name: schedule-handler
     files:
       - scheduleHandler.js
+
+  - name: default-post-mapping
+    files:
+      - defaultPostMapping.groovy
