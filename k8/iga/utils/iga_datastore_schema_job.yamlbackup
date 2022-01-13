@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: iga-datastore-schema-job
-          image: gcr.io/forgerock-autoid/ci/develop/tenancy-initializer:447618116
+          image: gcr.io/forgerock-autoid/ci/develop/tenancy-initializer:447627326
           env:
             - name: TENANT_NAME
               value: panduri-0929-funval-1 # example: jul-30-test
