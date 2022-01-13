@@ -43,6 +43,7 @@ data:
                 "class" : "org.forgerock.audit.handlers.jas.JasAuditEventHandler",
                 "config" : {
                     "name" : "jas",
+                    "targetOutput": "#JAS_AUDIT_HANDLER_TARGET_OUTPUT#",
                     "tenantId" : "#JAS_TENANT_ID#",
                     "jasUrl" : "https://jas:10081",
                     "nameSpace" : "openidm",
