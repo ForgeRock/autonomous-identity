@@ -42,6 +42,9 @@ spec:
             - mountPath: /opt/openidm/workflow/iga-basic-revocation.bpmn20.xml
               name: iga-basic-revocation-bpmn20-xml
               subPath: iga-basic-revocation.bpmn20.xml
+            - mountPath: /opt/openidm/workflow/iga-basic-request-entitlement-grant.bpmn20.xml
+              name: iga-basic-request-entitlement-grant-bpmn20-xml
+              subPath: iga-basic-request-entitlement-grant.bpmn20.xml
             - mountPath: /opt/openidm/conf/endpoint-iga-api.json
               name: endpoint-iga-api-json
               subPath: endpoint-iga-api.json
@@ -107,5 +110,8 @@ spec:
         - name: iga-basic-revocation-bpmn20-xml
           configMap:
             name: iga-basic-revocation-bpmn20-xml
+        - name: iga-basic-request-entitlement-grant-bpmn20-xml
+          configMap:
+            name: iga-basic-request-entitlement-grant-bpmn20-xml
 
 
