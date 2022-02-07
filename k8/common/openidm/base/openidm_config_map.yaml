@@ -38,21 +38,36 @@ data:
             "name" : "platform-provisioning",
             "description" : "Platform provisioning access"
           },
-     {
-        "id": "governance-administrator",
-        "name": "governance-administrator",
-        "description": "Manage governance operations"
-       },
-       {
-        "id": "access-request-admin",
-        "name": "access-request-admin",
-        "description": "Administrative access to Access Request application"
-       },
-       {
-        "id": "glossary-admin",
-        "name": "glossary-admin",
-        "description": "Administrative access to the glossary"
-       }
+          {
+            "id": "governance-administrator",
+            "name": "governance-administrator",
+            "description": "Manage governance operations"
+          },
+          {
+            "id": "access-request-admin",
+            "name": "access-request-admin",
+            "description": "Administrative access to Access Request application"
+          },
+          {
+            "id": "glossary-admin",
+            "name": "glossary-admin",
+            "description": "Administrative access to the glossary"
+          },
+          {
+            "id": "certification-admin",
+            "name": "certification-admin",
+            "description": "Administrative access to manage IGA certifications"
+          },
+          {
+            "id": "application-admin",
+            "name": "application-admin",
+            "description": "Administrative access to manage IGA applications"
+          },
+          {
+            "id": "entitlement-admin",
+            "name": "glossary-admin",
+            "description": "Administrative access to manage IGA entitlements"
+          }
         ],
         "internal/user" : [
           {
