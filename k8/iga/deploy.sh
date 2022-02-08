@@ -45,7 +45,7 @@ sed -ibackup "s|#DATAFLOW_PROJECT_ID#|${GCP_PROJECT_ID}|"                       
 sed -ibackup "s|#DATAFLOW_WORKER_SERVICE_ACCOUNT#|${DATAFLOW_WORKER_SERVICE_ACCOUNT}|"            app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#DATAFLOW_ETL_CONFIG_LOCATION#|${DATAFLOW_ETL_CONFIG_LOCATION}|"                  app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#DOMAIN_NAME#|${DOMAIN_NAME}|"                                                    app/nginx/overlays/nginx_config_map.yaml
-sed -ibackup "s|#IGA_UI_SUBDOMAIN#|${IGA_UI_SUBDOMAIN}|"  
+sed -ibackup "s|#IGA_UI_SUBDOMAIN#|${IGA_UI_SUBDOMAIN}|"                                          app/nginx/overlays/nginx_config_map.yaml
 sed -ibackup "s|#PLATFORM_UI_SUBDOMAIN#|${PLATFORM_UI_SUBDOMAIN}|"                                app/nginx/overlays/nginx_config_map.yaml
 sed -ibackup "s|#ES_HOST#|${ES_HOST}|"                                                            app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#ES_PRIMARY_SHARDS_PER_INDEX#|${ES_PRIMARY_SHARDS_PER_INDEX}|"                    app/jas/overlays/jas_config_map.yaml
@@ -61,8 +61,8 @@ sed -ibackup "s|#GKE_CLUSTER_NAME#|${GKE_CLUSTER_NAME}|"                        
 sed -ibackup "s|#ETL_RUNNER#|${ETL_RUNNER}|"                                                      app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#OIDC_ENABLED#|${OIDC_ENABLED}|"                                                  app/iga-api/overlays/iga_api_config_map.yaml
-sed -ibackup "s|#IGA_UI_SUBDOMAIN#|${IGA_UI_SUBDOMAIN}|"
-sed -ibackup "s|#APPLICATION_TEMPLATE_FOLDER#|${APPLICATION_TEMPLATE_FOLDER}|"                                          app/iga-api/overlays/iga_api_config_map.yaml
+sed -ibackup "s|#IGA_UI_SUBDOMAIN#|${IGA_UI_SUBDOMAIN}|"                                          app/iga-api/overlays/iga_api_config_map.yaml
+sed -ibackup "s|#APPLICATION_TEMPLATE_FOLDER#|${APPLICATION_TEMPLATE_FOLDER}|"                    app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#PLATFORM_UI_SUBDOMAIN#|${PLATFORM_UI_SUBDOMAIN}|"                                app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#DOMAIN_NAME#|${DOMAIN_NAME}|"                                                    app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/openidm/overlays/openidm_config_map.yaml
