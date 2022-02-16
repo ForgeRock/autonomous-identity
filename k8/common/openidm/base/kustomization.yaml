@@ -39,6 +39,18 @@ configMapGenerator:
     files:
       -  iga-basic-account-deletion.bpmn20.xml
 
+  - name: iga-basic-app-object-type-creation-bpmn20-xml
+    files:
+      -  iga-basic-app-object-type-creation.bpmn20.xml
+
+  - name: iga-basic-app-object-type-modification-bpmn20-xml
+    files:
+      -  iga-basic-app-object-type-modification.bpmn20.xml
+
+  - name: iga-basic-app-object-type-deletion-bpmn20-xml
+    files:
+      -  iga-basic-app-object-type-deletion.bpmn20.xml
+
   - name: schedule-handler
     files:
       - scheduleHandler.js

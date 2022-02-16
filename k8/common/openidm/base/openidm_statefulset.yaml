@@ -54,6 +54,15 @@ spec:
             - mountPath: /opt/openidm/workflow/iga-basic-account-deletion.bpmn20.xml
               name: iga-basic-account-deletion-bpmn20-xml
               subPath: iga-basic-account-deletion.bpmn20.xml
+            - mountPath: /opt/openidm/workflow/iga-basic-app-object-type-creation.bpmn20.xml
+              name: iga-basic-app-object-type-creation-bpmn20-xml
+              subPath: iga-basic-app-object-type-creation.bpmn20.xml
+            - mountPath: /opt/openidm/workflow/iga-basic-app-object-type-modification.bpmn20.xml
+              name: iga-basic-app-object-type-modification-bpmn20-xml
+              subPath: iga-basic-app-object-type-modification.bpmn20.xml
+            - mountPath: /opt/openidm/workflow/iga-basic-app-object-type-deletion.bpmn20.xml
+              name: iga-basic-app-object-type-deletion-bpmn20-xml
+              subPath: iga-basic-app-object-type-deletion.bpmn20.xml
             - mountPath: /opt/openidm/conf/endpoint-iga-api.json
               name: endpoint-iga-api-json
               subPath: endpoint-iga-api.json
@@ -131,5 +140,14 @@ spec:
         - name: iga-basic-account-deletion-bpmn20-xml
           configMap:
             name: iga-basic-account-deletion-bpmn20-xml
+        - name: iga-basic-app-object-type-creation-bpmn20-xml
+          configMap:
+            name: iga-basic-app-object-type-creation-bpmn20-xml
+        - name: iga-basic-app-object-type-modification-bpmn20-xml
+          configMap:
+            name: iga-basic-app-object-type-modification-bpmn20-xml
+        - name: iga-basic-app-object-type-deletion-bpmn20-xml
+          configMap:
+            name: iga-basic-app-object-type-deletion-bpmn20-xml
 
 
