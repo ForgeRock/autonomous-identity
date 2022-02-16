@@ -27,6 +27,18 @@ configMapGenerator:
     files:
       -  iga-basic-request-entitlement-grant.bpmn20.xml
 
+  - name: iga-basic-account-creation-bpmn20-xml
+    files:
+      -  iga-basic-account-creation.bpmn20.xml
+
+  - name: iga-basic-account-modification-bpmn20-xml
+    files:
+      -  iga-basic-account-modification.bpmn20.xml
+
+  - name: iga-basic-account-deletion-bpmn20-xml
+    files:
+      -  iga-basic-account-deletion.bpmn20.xml
+
   - name: schedule-handler
     files:
       - scheduleHandler.js
