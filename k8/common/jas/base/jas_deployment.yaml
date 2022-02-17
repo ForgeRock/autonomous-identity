@@ -33,6 +33,8 @@ spec:
             name: jas-signature
           - mountPath: /opt/autoid/mounts/jwt/
             name: jwt-certs
+          - mountPath: /opt/autoid/mounts/jas-config/
+            name: jas-config
       imagePullSecrets:
         - name: autoid-registry
       volumes:
@@ -45,5 +47,8 @@ spec:
       - name: jas-signature
         secret:
           secretName: jas-signature
+      - name: jas-config
+        configMap:
+          name: jas-config
       serviceAccount: iga-workload-identity
           
