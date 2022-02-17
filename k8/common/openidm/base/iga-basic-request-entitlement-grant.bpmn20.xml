@@ -6,18 +6,24 @@
     <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="scripttask0"></sequenceFlow>
     <scriptTask id="scripttask0" name="Call Remediate Script" scriptFormat="groovy" flowable:autoStoreVariables="false">
       <script>def content = execution.getVariables();
-  def request = content.request;
-  def body = [:];
-  if(request.assignees.startsWith('/managed/user/')) {
-    def params = [:];
-    params.applicationId = request.catalog.resource.applicationId;
-    params.userId = request.assignees.substring(14);
-    def accountSearchResult = openidm.action('iga/governance/account', 'GET', body, params);
-    def account = accountSearchResult[0];
+  def requestId = content.id;
+  def requestIndex = openidm.action('iga/governance/request/' + requestId, 'GET', [:], [:]);
+  if(requestIndex) {
+    def request = requestIndex.request;
+    def body = [:];
+    if(request.assignees.startsWith('/managed/user/')) {
+      def params = [:];
+      params.applicationId = request.catalog.resource.applicationId;
+      params.userId = request.assignees.substring(14);
+      def accountSearchResult = openidm.action('iga/governance/account', 'GET', body, params);
+      def account = accountSearchResult[0];
 
-    body.resourceIds = [request.catalog.resource.id];
-    def result = openidm.action('iga/governance/user/' + params.userId + '/account/' + account.id + '/grant-entitlement', 'POST', body);
-    execution.setVariables(result);
+      body.resourceIds = [request.catalog.resource.id];
+      def result = openidm.action('iga/governance/user/' + params.userId + '/account/' + account.id + '/grant-entitlement', 'POST', body);
+      execution.setVariables(result);
+    }
+  } else {
+    execution.setVariables([message: 'request not found']);
   }
       </script>
     </scriptTask>
