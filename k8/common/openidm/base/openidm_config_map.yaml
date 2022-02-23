@@ -65,7 +65,7 @@ data:
           },
           {
             "id": "entitlement-admin",
-            "name": "glossary-admin",
+            "name": "entitlement-admin",
             "description": "Administrative access to manage IGA entitlements"
           }
         ],
@@ -73,6 +73,10 @@ data:
           {
             "id" : "openidm-admin",
             "password" : "&{openidm.admin.password}"
+          },
+          { 
+            "id": "iga-internal-admin",
+            "password": "iga-internal-admin"
           },
           {
             "id" : "anonymous",
