@@ -80,6 +80,9 @@ spec:
             - mountPath: /opt/openidm/conf/repo.init.json
               name: idm-conf-repo
               subPath: repo.init.json
+            - mountPath: /opt/openidm/conf/authentication.json
+              name: idm-conf-authentication
+              subPath: authentication.json
             - mountPath: /opt/openidm/script/scheduleHandler.js
               name: schedule-handler
               subPath: scheduleHandler.js
@@ -98,6 +101,9 @@ spec:
         - name: idm-conf-repo
           configMap:
             name: idm-conf-repo
+        - name: idm-conf-authentication
+          configMap:
+            name: idm-conf-authentication
         - name: openidm-conf-datasource
           secret:
             secretName: openidm-conf-datasource
