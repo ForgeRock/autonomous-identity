@@ -217,46 +217,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: openidm-identity-providers-json
+  name: idm-authentication
 data:
-  identityProviders.json: ""
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: openidm-identityprovider-microsoft-json
-data:
-  identityProvider-microsoft.json: ""
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: openidm-selfservice-registration-json
-data:
-  selfservice-registration.json: ""
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: openidm-ui-configuration-json
-data:
-  ui-configuration.json: ""
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: openidm-selfservice-socialuserclaim-json
-data:
-  selfservice-socialUserClaim.json: ""
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: openidm-populateasmanageduserfromrelationship-js
-data:
-  populateAsManagedUserFromRelationship.js: ""
+  authentication.json: ""

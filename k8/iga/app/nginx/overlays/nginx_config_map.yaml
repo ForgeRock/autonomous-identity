@@ -116,8 +116,11 @@ data:
             proxy_send_timeout          60000;
             proxy_read_timeout          60000;
             send_timeout                60000;
-            http2_max_field_size 64k;
-            http2_max_header_size 64k;
+            http2_max_field_size 512k;
+            http2_max_header_size 512k;
+            client_body_buffer_size     512k;
+            client_header_buffer_size   512k;
+            large_client_header_buffers 8 512k;
             location /{
             set_secure_random_alphanum $cspNonce 32;
             sub_filter_once off;
@@ -197,8 +200,11 @@ data:
             proxy_send_timeout          60000;
             proxy_read_timeout          60000;
             send_timeout                60000;
-            http2_max_field_size 64k;
-            http2_max_header_size 64k;
+            http2_max_field_size 512k;
+            http2_max_header_size 512k;
+            client_body_buffer_size     512k;
+            client_header_buffer_size   512k;
+            large_client_header_buffers 8 512k;
             location /{
                 set_secure_random_alphanum $cspNonce 32;
                 sub_filter_once off;

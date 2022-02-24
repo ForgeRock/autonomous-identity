@@ -8,7 +8,7 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/forgerock-autoid/ci/develop/openidm:478191540
+        - image: gcr.io/forgerock-autoid/ci/develop/openidm:478251029
           name: openidm
           env:
           - name: PG_OPENIDM_USER
@@ -33,24 +33,9 @@ spec:
           - name: openidm-conf-datasource
             mountPath: /opt/openidm/conf/datasource.jdbc-default.json
             subPath: datasource.jdbc-default.json
-          - mountPath: /opt/openidm/conf/identityProviders.json
-            name: identity-providers-json
-            subPath: identityProviders.json
-          - mountPath: /opt/openidm/conf/identityProvider-microsoft.json
-            name: identityprovider-microsoft-json
-            subPath: identityProvider-microsoft.json
-          - mountPath: /opt/openidm/conf/selfservice-registration.json
-            name: selfservice-registration-json
-            subPath: selfservice-registration.json
-          - mountPath: /opt/openidm/conf/ui-configuration.json
-            name: ui-configuration-json
-            subPath: ui-configuration.json
-          - mountPath: /opt/openidm/bin/defaults/script/auth/populateAsManagedUserFromRelationship.js
-            name: populateasmanageduserfromrelationship-js
-            subPath: populateAsManagedUserFromRelationship.js
-          - mountPath: /opt/openidm/conf/selfservice-socialUserClaim.json
-            name: selfservice-socialuserclaim-json
-            subPath: selfservice-socialUserClaim.json
+          - name: authentication-json
+            mountPath: /opt/openidm/conf/authentication.json
+            subPath: authentication.json
             
       volumes:
       - name: secrets-json
@@ -67,28 +52,9 @@ spec:
           items:
             - key: datasource.jdbc-default.json
               path: datasource.jdbc-default.json
-      - name: identity-providers-json
+      - name: authentication-json
         configMap:
           defaultMode: 420
-          name: openidm-identity-providers-json
-      - name: identityprovider-microsoft-json
-        configMap:
-          defaultMode: 420
-          name: openidm-identityprovider-microsoft-json
-      - name: selfservice-registration-json
-        configMap:
-          defaultMode: 420
-          name: openidm-selfservice-registration-json
-      - name: ui-configuration-json
-        configMap:
-          defaultMode: 420
-          name: openidm-ui-configuration-json
-      - name: selfservice-socialuserclaim-json
-        configMap:
-          defaultMode: 420
-          name: openidm-selfservice-socialuserclaim-json
-      - name: populateasmanageduserfromrelationship-js
-        configMap:
-          defaultMode: 420
-          name: openidm-populateasmanageduserfromrelationship-js
+          name: idm-authentication
+
       

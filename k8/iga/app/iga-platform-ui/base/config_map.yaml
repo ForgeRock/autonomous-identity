@@ -18,6 +18,11 @@ data:
         server {
         listen       18081;
         server_name  localhost;
+        http2_max_field_size 512k;
+        http2_max_header_size 512k;
+        client_body_buffer_size     512k;
+        client_header_buffer_size   512k;
+        large_client_header_buffers 8 512k;
         location / {
             add_header Cache-Control no-store;
                 add_header Pragma no-cache;

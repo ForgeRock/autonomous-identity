@@ -221,467 +221,109 @@ data:
     ],
     "populateDefaults": true
     }
-    
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: openidm-identity-providers-json
-data:
-    identityProviders.json: |
-        {
-        "providers" : [
-            {
-                "provider" : "microsoft",
-                "authorizationEndpoint" : "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
-                "tokenEndpoint" : "https://login.microsoftonline.com/common/oauth2/v2.0/token",
-                "userInfoEndpoint" : "https://graph.microsoft.com/v1.0/me",
-                "clientId" : "",
-                "clientSecret" : "",
-                "scope" : [
-                    "User.Read"
-                ],
-                "authenticationIdKey" : "id",
-                "basicAuth" : false,
-                "uiConfig": {
-                    "iconBackground": "#0078d7",
-                    "iconClass": "fa-windows",
-                    "iconFontColor": "white",
-                    "buttonImage" : "images/microsoft-logo.png",
-                    "buttonClass": "",
-                    "buttonDisplayName" : "Microsoft",
-                    "buttonCustomStyle" : "background-color: #fff; border-color: #8b8b8b; color: #8b8b8b;",
-                    "buttonCustomStyleHover" : "background-color: #fff; border-color: #8b8b8b; color: #8b8b8b;"
-                },
-                "schema" : {
-                    "id" : "urn:jsonschema:org:forgerock:openidm:identityProviders:api:Microsoft",
-                    "title": "Microsoft",
-                    "viewable" : true,
-                    "type" : "object",
-                    "$schema" : "http://json-schema.org/draft-03/schema",
-                    "properties" : {
-                        "id" : {
-                            "description" : "ID",
-                            "title" : "ID",
-                            "viewable" : true,
-                            "type" : "string",
-                            "searchable" : false
-                        },
-                        "displayName" : {
-                            "description" : "Name",
-                            "title" : "Name",
-                            "viewable" : true,
-                            "type" : "string",
-                            "searchable" : true
-                        },
-                        "givenName" : {
-                            "description" : "First Name",
-                            "title" : "First Name",
-                            "viewable" : true,
-                            "type" : "string",
-                            "searchable" : true
-                        },
-                        "surname" : {
-                            "description" : "Last Name",
-                            "title" : "Last Name",
-                            "viewable" : true,
-                            "type" : "string",
-                            "searchable" : true
-                        },
-                        "userPrincipalName": {
-                            "description" : "Email Address",
-                            "title": "Email Address",
-                            "viewable": true,
-                            "type": "string",
-                            "searchable": true
-                        }
-                    },
-                    "order" : [
-                        "id",
-                        "displayName",
-                        "userPrincipalName",
-                        "givenName",
-                        "surname"
-                    ],
-                    "required" : [ ]
-                },
-                "propertyMap": [
-                    {
-                        "source" : "id",
-                        "target" : "id"
-                    },
-                    {
-                        "source" : "displayName",
-                        "target" : "displayName"
-                    },
-                    {
-                        "source" : "givenName",
-                        "target" : "givenName"
-                    },
-                    {
-                        "source" : "surname",
-                        "target" : "familyName"
-                    },
-                    {
-                        "source" : "userPrincipalName",
-                        "target" : "email"
-                    },
-                    {
-                        "source" : "userPrincipalName",
-                        "target" : "username"
-                    }
-                ],
-                "redirectUri" : "https://localhost:8443/",
-                "configClass" : "org.forgerock.oauth.clients.oauth2.OAuth2ClientConfiguration"
-            }            
-          ]
-        }
 
 ---
-apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: openidm-identityprovider-microsoft-json
-data:
-    identityProvider-microsoft.json: |
-        {
-         "provider" : "microsoft",
-         "authorizationEndpoint" : "#AUTHORIZATION_ENDPOINT#",
-         "tokenEndpoint" : "#TOKEN_ENDPOINT#",
-         "userInfoEndpoint" : "#USER_INFO_ENDPOINT#",
-         "clientId" : "#CLIENT_ID#",
-         "clientSecret" :"#CLIENT_SECRET#",
-         "scope" : #SCOPE#,
-         "authenticationIdKey" : "id",
-         "basicAuth" : false,
-         "uiConfig" : {
-             "iconBackground" : "#0078d7",
-             "iconClass" : "fa-windows",
-             "iconFontColor" : "white",
-             "buttonImage" : "images/microsoft-logo.png",
-             "buttonDisplayName" : "Microsoft",
-             "buttonCustomStyle" : "background-color: #fff; border-color: #8b8b8b; color: #8b8b8b;",
-             "buttonCustomStyleHover" : "background-color: #fff; border-color: #8b8b8b; color: #8b8b8b;"
-         },
-         "schema" : {
-             "id" : "urn:jsonschema:org:forgerock:openidm:identityProviders:api:Microsoft",
-             "title" : "Microsoft",
-             "viewable" : true,
-             "type" : "object",
-             "$schema" : "http://json-schema.org/draft-03/schema",
-             "properties" : {
-                 "id" : {
-                     "description" : "ID",
-                     "title" : "ID",
-                     "viewable" : true,
-                     "type" : "string",
-                     "searchable" : false
-                 },
-                 "displayName" : {
-                     "description" : "Name",
-                     "title" : "Name",
-                     "viewable" : true,
-                     "type" : "string",
-                     "searchable" : true
-                 },
-                 "givenName" : {
-                     "description" : "First Name",
-                     "title" : "First Name",
-                     "viewable" : true,
-                     "type" : "string",
-                     "searchable" : true
-                 },
-                 "surname" : {
-                     "description" : "Last Name",
-                     "title" : "Last Name",
-                     "viewable" : true,
-                     "type" : "string",
-                     "searchable" : true
-                 },
-                 "userPrincipalName" : {
-                     "description" : "Email Address",
-                     "title" : "Email Address",
-                     "viewable" : true,
-                     "type" : "string",
-                     "searchable" : true
-                 }
-             },
-             "order" : [
-                 "id",
-                 "displayName",
-                 "userPrincipalName",
-                 "givenName",
-                 "surname"
-             ],
-             "required" : [ ]
-         },
-         "propertyMap" : [
-             {
-                 "source" : "id",
-                 "target" : "id"
-             },
-             {
-                 "source" : "displayName",
-                 "target" : "displayName"
-             },
-             {
-                 "source" : "givenName",
-                 "target" : "givenName"
-             },
-             {
-                 "source" : "surname",
-                 "target" : "familyName"
-             },
-             {
-                 "source" : "userPrincipalName",
-                 "target" : "email"
-             },
-             {
-                 "source" : "userPrincipalName",
-                 "target" : "username"
-             }
-         ],
-         "redirectUri" : "https://#PLATFORM_UI_SUBDOMAIN#.#DOMAIN_NAME#/",
-         "configClass" : "org.forgerock.oauth.clients.oauth2.OAuth2ClientConfiguration",
-         "enabled" : true
-        }
-
----
+  name: idm-authentication
 apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: openidm-selfservice-registration-json
 data:
-    selfservice-registration.json: |
-        {
-         "allInOneRegistration" : true,
-         "stageConfigs" : [
-             {
-                 "name" : "parameters",
-                 "parameterNames" : [
-                     "returnParams"
-                 ]
-             },
-             {
-                 "name" : "idmUserDetails",
-                 "identityEmailField" : "mail",
-                 "socialRegistrationEnabled" : true,
-                 "registrationProperties" : [
-                     "userName",
-                     "givenName",
-                     "sn",
-                     "mail"
-                 ],
-                 "identityServiceUrl" : "managed/user",
-                 "registrationPreferences" : [
-                     "marketing",
-                     "updates"
-                 ]
-             },
-             {
-                 "name" : "selfRegistration",
-                 "identityServiceUrl" : "managed/user"
-             },
-             {
-                 "name" : "localAutoLogin",
-                 "identityUsernameField" : "userName",
-                 "identityPasswordField" : "password",
-                 "successUrl" : ""
-             }
-         ],
-         "snapshotToken" : {
-             "type" : "jwt",
-             "jweAlgorithm" : "RSAES_PKCS1_V1_5",
-             "encryptionMethod" : "A128CBC_HS256",
-             "jwsAlgorithm" : "HS256",
-             "tokenExpiry" : 300
-         },
-         "storage" : "stateless"
-        }
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: openidm-ui-configuration-json
-data:
-    ui-configuration.json: |
-        {
-        "configuration" : {
-            "selfRegistration" : true,
-            "passwordReset" : false,
-            "forgotUsername" : false,
-            "lang" : "en",
-            "passwordResetLink" : "",
-            "roles" : {
-                "internal/role/openidm-authorized" : "ui-user",
-                "internal/role/openidm-admin" : "ui-admin"
-            },
-            "notificationTypes" : {
-                "info" : {
-                    "name" : "common.notification.types.info",
-                    "iconPath" : "images/notifications/info.png"
-                },
-                "warning" : {
-                    "name" : "common.notification.types.warning",
-                    "iconPath" : "images/notifications/warning.png"
-                },
-                "error" : {
-                    "name" : "common.notification.types.error",
-                    "iconPath" : "images/notifications/error.png"
+  authentication.json: |
+    {
+        "serverAuthContext" : {
+            "sessionModule" : {
+                "name" : "JWT_SESSION",
+                "properties" : {
+                    "maxTokenLifeMinutes" : 120,
+                    "tokenIdleTimeMinutes" : 30,
+                    "sessionOnly" : true,
+                    "isHttpOnly" : true,
+                    "enableDynamicRoles" : false
                 }
             },
-            "defaultNotificationType" : "info",
-            "kbaDefinitionEnabled" : false,
-            "kbaEnabled" : false
+            "authModules" : [
+                {
+                    "name" : "STATIC_USER",
+                    "properties" : {
+                        "queryOnResource" : "internal/user",
+                        "username" : "anonymous",
+                        "password" : "anonymous",
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-reg"
+                        ]
+                    },
+                    "enabled" : true
+                },
+                {
+                    "name" : "STATIC_USER",
+                    "properties" : {
+                        "queryOnResource" : "internal/user",
+                        "username" : "openidm-admin",
+                        "password" : "&{openidm.admin.password}",
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-authorized",
+                            "internal/role/openidm-admin"
+                        ]
+                    },
+                    "enabled" : true
+                },
+                {
+                    "name" : "MANAGED_USER",
+                    "properties" : {
+                        "augmentSecurityContext": {
+                            "type" : "text/javascript",
+                            "source" : "var augmentYield = require('auth/customAuthz').setProtectedAttributes(security);require('auth/orgPrivileges').assignPrivilegesToUser(resource, security, properties, subjectMapping, privileges, 'privileges', 'privilegeAssignments', augmentYield);"
+                        },
+                        "queryId" : "credential-query",
+                        "queryOnResource" : "managed/user",
+                        "propertyMapping" : {
+                            "authenticationId" : "username",
+                            "userCredential" : "password",
+                            "userRoles" : "authzRoles",
+                            "additionalUserFields": ["adminOfOrg", "ownerOfOrg"]
+                        },
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-authorized"
+                        ]
+                    },
+                    "enabled" : true
+                },
+                {
+                    "name" : "OAUTH_CLIENT",
+                    "properties" : {
+                        "propertyMapping" : #OIDC_PROPERTY_MAPPING#,
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-authorized"
+                        ],
+                        "idpConfig" : {
+                            "provider" : "OIDC",
+                            "scope" : #OIDC_SCOPE#,
+                            "uiConfig": {
+                                "iconBackground": "#0078d7",
+                                "iconClass": "fa-windows",
+                                "iconFontColor": "white",
+                                "buttonImage" : "images/loginlogo2.png",
+                                "buttonClass": "",
+                                "buttonDisplayName" : "OIDC",
+                                "buttonCustomStyle" : "background-color: #fff; border-color: #8b8b8b; color: #8b8b8b;",
+                                "buttonCustomStyleHover" : "background-color: #fff; border-color: #8b8b8b; color: #8b8b8b;"
+                            },
+                            "authenticationIdKey" : #OIDC_AUTHENTICATIONID_KEY#,
+                            "clientId" : "#CLIENT_ID#",
+                            "clientSecret" : "#CLIENT_SECRET#",
+                            "authorizationEndpoint" : "#AUTHORIZATION_ENDPOINT#",
+                            "tokenEndpoint" : "#TOKEN_ENDPOINT#",
+                            "wellKnownEndpoint" : "#WELL_KNOWN_ENDPOINT#",
+                            "redirectUri" : "#OIDC_REDIRECT_URL#",
+                            "configClass" : "org.forgerock.oauth.clients.oidc.OpenIDConnectClientConfiguration",
+                            "displayIcon" : "forgerock",
+                            "enabled" : true
+                        },
+                        "queryOnResource" : "managed/user"
+                    },
+                    "enabled" : #OIDC_ENABLED#
+                }
+            ]
         }
-        }
+    }
 
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: openidm-selfservice-socialuserclaim-json
-data:
-    selfservice-socialUserClaim.json: |
-        {
-        "stageConfigs" : [
-            {
-                "name" : "parameters",
-                "parameterNames" : [
-                    "returnParams"
-                ]
-            },
-            {
-                "name" : "socialUserClaim",
-                "identityServiceUrl" : "managed/user",
-                "claimQueryFilter" : "/mail eq \"{{mail}}\""
-            },
-            {
-                "name" : "localAutoLogin",
-                "identityUsernameField" : "userName",
-                "identityPasswordField" : "password",
-                "successUrl" : ""
-            }
-        ],
-        "snapshotToken" : {
-            "type" : "jwt",
-            "jweAlgorithm" : "RSAES_PKCS1_V1_5",
-            "encryptionMethod" : "A128CBC_HS256",
-            "jwsAlgorithm" : "HS256",
-            "tokenExpiry" : 300
-        },
-        "storage" : "stateless"
-        }
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: openidm-populateasmanageduserfromrelationship-js
-data:
-    populateAsManagedUserFromRelationship.js: |
-        /*
-        * Copyright 2016-2018 ForgeRock AS. All Rights Reserved
-        *
-        * Use of this code requires a commercial software license with ForgeRock AS.
-        * or with one of its affiliates. All use shall be exclusively subject
-        * to such license between the licensee and ForgeRock AS.
-        */
-
-        /*global security, properties, openidm */
-
-        /**
-        * This security context population script is called when the auth module authenticates a
-        * user from a security context which is related to managed/idpData, and we wish to aggregate
-        * the current security context with the one for the linked managed/user record (if found).
-        *
-        * global properties - auth module-specific properties from authentication.json for the
-        *                     a potential OAUTH or OPENID_CONNECT auth module
-        *      {
-        *          "name" : "",
-        *          "properties" : {
-        *              "augmentSecurityContext": {
-        *                  "type" : "text/javascript",
-        *                  "file" : "auth/populateAsManagedUserFromRelationship.js"
-        *              },
-        *              "queryOnResource" : "managed/google",
-        *              "propertyMapping" : {
-        *                  "userRoles" : "authzRoles",
-        *                  "authenticationId" : "_id"
-        *              }
-        *          },
-        *          "defaultUserRoles" : [
-        *              "internal/role/openidm-authorized"
-        *          ],
-        *          "resolvers" : [
-        *          ...
-        *          ],
-        *          "authTokenHeader" : "authToken",
-        *          "authResolverHeader" : "provider"
-        *          ...
-        *      }
-        *
-        * global security - map of security context details as have been determined thus far
-        *
-        *      {
-        *          "authorization": {
-        *              "id": "jsmith",
-        *              "component": "managed/google",
-        *              "roles": [ "internal/role/openidm-authorized" ]
-        *          },
-        *          "authenticationId": "1234567",
-        *      }
-        */
-
-        (function () {
-            logger.debug("Augment context for: {}", security.authenticationId);
-
-            var _ = require("lib/lodash"),
-                provider = requestContextMap.provider,
-                baseObject = openidm.read("managed/" + provider + "/" + security.authorization.id, null, ["*","user"]);
-
-            if (!baseObject || !baseObject.user) {
-                throw {
-                    "code" : 401,
-                    "message" : "Access denied"
-                };
-            }
-
-            var managedUser = openidm.read(baseObject.user._ref, null, ["*", "authzRoles/*"]);
-
-            if (managedUser.accountStatus !== "active") {
-                throw {
-                    "code" : 401,
-                    "message" : "Access denied, user inactive"
-                };
-            }
-
-            // copy and update necessary fields within security authorization map
-            var securityContextClone = {};
-            Object.keys(security.authorization).forEach(function (k) {
-                securityContextClone[k] = security.authorization[k];
-            });
-
-            securityContextClone.id = managedUser._id;
-            securityContextClone.component =  "managed/user";
-            securityContextClone.queryId = "credential-query";
-            securityContextClone.authenticationIdProperty = "username";
-            securityContextClone.provider = provider;
-            securityContextClone.roles = managedUser.authzRoles
-                    ? _.uniq(
-                        security.authorization.roles.concat(
-                            _.map(managedUser.authzRoles, function (role) {
-                                // appending empty string gets the value from java into a format more familiar to JS
-                                return org.forgerock.json.resource.ResourcePath.valueOf(role._ref) + "";
-                            })
-                        )
-                    )
-                    : security.authorization.roles;
-            securityContextClone.authenticationId = managedUser.userName;
-
-            security.authorization = securityContextClone;
-
-            return security;
-
-        }());
