@@ -58,6 +58,9 @@ function makeExternalCall(path, method, body, queryParams) {
         logger.warn("Could not generate authorization header.");
         return;
     }
+
+    var requestBody = body.requestBody || body;
+
     var params = {
         url: url,
         method: method,
@@ -66,7 +69,7 @@ function makeExternalCall(path, method, body, queryParams) {
         Authorization : header
         },
         contentType: 'application/json',
-        body: JSON.stringify(body),
+        body: org.forgerock.json.JsonValue.json(requestBody).toString(),
       }
       var result = openidm.action("external/rest", "call", params);
       return result;

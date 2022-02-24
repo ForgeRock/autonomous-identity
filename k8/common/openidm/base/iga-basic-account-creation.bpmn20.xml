@@ -6,11 +6,32 @@
     <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="scripttask0"></sequenceFlow>
     <scriptTask id="scripttask0" name="Call Remediate Script" scriptFormat="groovy" flowable:autoStoreVariables="false">
       <script>
-      // to be implemented
-        def content = execution.getVariables();
+  def content = execution.getVariables();
+  def requestId = content.id;
+  def requestIndex = openidm.action('iga/governance/request/' + requestId, 'GET', [:], [:]);
+  if(requestIndex) {
+    def request = requestIndex.request;
+    def accounts = openidm.action('iga/governance/application/' + request.applicationId + '/__ACCOUNT__/preview-object', 'POST', ['requestBody':[request.userId]]);
+    if(accounts.size() > 0) {
+      def account = accounts[0];
+      if(account.object == null) {
+        account.object = [:];
+      }
+      request.each{key, val -> 
+        if(!(key.equals("applicationId") || key.equals("application") || key.equals("startDate") || key.equals("endDate") || key.equals("userId") || key.equals("user"))) {
+          account.object.put(key, val);
+        }
+      };
 
-        execution.setVariables('done');
-      </script>
+      def result = openidm.action('iga/governance/application/' + request.applicationId + '/__ACCOUNT__', 'POST', ['requestBody':[account]]);
+      execution.setVariables(result);
+    } else {
+      execution.setVariables([message: 'user not found']);
+    }
+  } else {
+    execution.setVariables([message: 'request not found']);
+  }      
+  </script>
     </scriptTask>
     <sequenceFlow id="flow1" sourceRef="scripttask0" targetRef="endevent1"></sequenceFlow>
   </process>
