@@ -268,6 +268,19 @@ data:
                     "enabled" : true
                 },
                 {
+                    "name" : "STATIC_USER",
+                    "properties" : {
+                        "queryOnResource" : "internal/user",
+                        "username" : "iga-internal-admin",
+                        "password" : "iga-internal-admin",
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-authorized",
+                            "internal/role/openidm-admin"
+                        ]
+                    },
+                    "enabled" : true
+                },
+                {
                     "name" : "MANAGED_USER",
                     "properties" : {
                         "augmentSecurityContext": {
