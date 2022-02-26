@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/forgerock-autoid/ci/develop/openidm:479918225
+        - image: gcr.io/forgerock-autoid/ci/develop/openidm:479949467
           name: openidm
           env:
             - name: PG_OPENIDM_USER
@@ -52,3 +52,11 @@ spec:
             items:
               - key: datasource.jdbc-default.json
                 path: datasource.jdbc-default.json
+        - name: authentication-json
+          configMap:
+            defaultMode: 420
+            name: idm-authentication
+        - name: idm-populateasmanageduser-js
+          configMap:
+            defaultMode: 420
+            name: openidm-populateasmanageduser-js

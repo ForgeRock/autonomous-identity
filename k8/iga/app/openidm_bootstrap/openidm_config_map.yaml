@@ -408,7 +408,7 @@ data:
             managedUser;
 
 
-        managedUser = openidm.query("managed/user", { '_queryFilter' : '/userName eq "' + security.authenticationId  + '"' }, ["*","authzRoles/*"]);
+        managedUser = openidm.query("managed/user", { '_queryFilter' : '/'+ userIdPropertyName + ' eq "' + security.authenticationId  + '"' }, ["*","authzRoles/*"]);
 
         if (managedUser.result.length === 0) {
             throw {
@@ -433,7 +433,7 @@ data:
         securityContextClone.id = managedUser.result[0]._id;
         securityContextClone.component = "managed/user";
         securityContextClone.queryId = "credential-query";
-        securityContextClone.authenticationIdProperty = "username";
+        securityContextClone.authenticationIdProperty = userIdPropertyName;
         securityContextClone.roles = managedUser.result[0].authzRoles
                 ? _.uniq(
                         security.authorization.roles.concat(
@@ -445,8 +445,7 @@ data:
                 )
                 : security.authorization.roles;
 
-        securityContextClone.authenticationId = managedUser.result[0].userName;
-
+        securityContextClone.authenticationId = managedUser.result[0][userIdPropertyName];
         security.authorization = securityContextClone;
 
         return require('auth/customAuthz').setProtectedAttributes(security);
