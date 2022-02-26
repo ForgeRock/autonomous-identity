@@ -117,6 +117,15 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: openidm-populateasmanageduser-js
+data:
+  populateAsManagedUser.js: ""
+
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: idm-authentication
 data:
   authentication.json: ""
