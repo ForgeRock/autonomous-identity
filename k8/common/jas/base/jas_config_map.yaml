@@ -1,0 +1,358 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jas-config
+  labels:
+    app: jas
+    product: autoid
+data:
+    jas.config: |
+        {
+          "ReportsConf": {
+            "RoleMining": "RoleMining",
+            "Automatic Re-certification Feed": "AutomaticRecertificationFeed",
+            "Full Output (IDM) Feed": "FullOutputFeed",
+            "Anomaly Report": "AnomalyReport",
+            "Recommend Predictions": "RecommendPredictions",
+            "Event Based Certification": "EventBasedCertification"
+          },
+          "OrgNameConf": {
+            "orgName": "test"
+          },
+          "UIThresholdsConf": {
+            "minScore": {
+              "top": 1.01,
+              "high": 0.75,
+              "medium": 0.35,
+              "low": 0,
+              "autoAccess": 0.5
+            }
+          },
+          "OtherThresholdsConf": {
+            "mostAssigned": {
+              "count": 100
+            },
+            "volume": {
+              "high": {
+                "minScore": 0.9,
+                "minUsersCount": 100
+              },
+              "low": {
+                "maxScore": 0.2,
+                "minUsersCount": 100
+              }
+            }
+          },
+          "JustificationDelimeter": {
+            "justificationDelimeter": "_"
+          },
+          "PermissionsConf": {
+            "permissions": {
+              "Zoran Admin": {
+                "title": "Admin",
+                "can": "*"
+              },
+              "###Zoran_Admin_Token###": {
+                "title": "Admin",
+                "can": "*"
+              },
+              "Zoran Role Engineer": {
+                "title": "Role Engineer",
+                "can": [
+                  "SHOW__ROLE_PAGE",
+                  "SEARCH__ALL_ROLES",
+                  "CREATE__ROLE",
+                  "UPDATE__ROLE",
+                  "DELETE__ROLE",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "###Zoran_Role_Engineer_Token###": {
+                "title": "Role Engineer",
+                "can": [
+                  "SHOW__ROLE_PAGE",
+                  "SEARCH__ALL_ROLES",
+                  "CREATE__ROLE",
+                  "UPDATE__ROLE",
+                  "DELETE__ROLE",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "Zoran Role Owner": {
+                "title": "Role Owner",
+                "can": [
+                  "SHOW__ROLE_PAGE",
+                  "SEARCH__ROLES",
+                  "CREATE__ROLE",
+                  "UPDATE__ROLE",
+                  "DELETE__ROLE",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "###Zoran_Role_Owner_Token###": {
+                "title": "Role Owner",
+                "can": [
+                  "SHOW__ROLE_PAGE",
+                  "SEARCH__ROLES",
+                  "CREATE__ROLE",
+                  "UPDATE__ROLE",
+                  "DELETE__ROLE",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "Zoran Application Owner": {
+                "title": "Application Owner",
+                "can": [
+                  "SHOW__APPLICATION_PAGE",
+                  "SEARCH__USER",
+                  "SEARCH__ENTITLEMENTS_BY_APP_OWNER",
+                  "SHOW_OVERVIEW_PAGE",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__ENTITLEMENT_USERS",
+                  "SHOW__APP_OWNER_FILTER_OPTIONS",
+                  "SHOW__ENTT_OWNER_UNSCORED_ENTITLEMENTS",
+                  "SHOW__ENTT_OWNER_PAGE",
+                  "SHOW__ENTT_OWNER_USER_PAGE",
+                  "SHOW__ENTT_OWNER_ENT_PAGE",
+                  "SHOW__USER_ENTITLEMENTS",
+                  "SHOW__RULES_BY_APP_OWNER",
+                  "REVOKE__CERTIFY_ACCESS",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "###Zoran_Application_Owner_Token###": {
+                "title": "Application Owner",
+                "can": [
+                  "SHOW__APPLICATION_PAGE",
+                  "SEARCH__USER",
+                  "SEARCH__ENTITLEMENTS_BY_APP_OWNER",
+                  "SHOW_OVERVIEW_PAGE",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__ENTITLEMENT_USERS",
+                  "SHOW__APP_OWNER_FILTER_OPTIONS",
+                  "SHOW__ENTT_OWNER_UNSCORED_ENTITLEMENTS",
+                  "SHOW__ENTT_OWNER_PAGE",
+                  "SHOW__ENTT_OWNER_USER_PAGE",
+                  "SHOW__ENTT_OWNER_ENT_PAGE",
+                  "SHOW__USER_ENTITLEMENTS",
+                  "SHOW__RULES_BY_APP_OWNER",
+                  "REVOKE__CERTIFY_ACCESS",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "Zoran Entitlement Owner": {
+                "title": "Entitlement Owner",
+                "can": [
+                  "SEARCH__ENTITLEMENTS_BY_ENTT_OWNER",
+                  "SHOW_OVERVIEW_PAGE",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__ENTITLEMENT_USERS",
+                  "SHOW__ENTT_OWNER_FILTER_OPTIONS",
+                  "SHOW__ENTT_OWNER_UNSCORED_ENTITLEMENTS",
+                  "SHOW__ENTT_OWNER_PAGE",
+                  "SHOW__ENTT_OWNER_USER_PAGE",
+                  "SHOW__ENTT_OWNER_ENT_PAGE",
+                  "SHOW__USER_ENTITLEMENTS",
+                  "SHOW__RULES_BY_ENTT_OWNER",
+                  "REVOKE__CERTIFY_ACCESS",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "###Zoran_Entitlement_Owner_Token###": {
+                "title": "Entitlement Owner",
+                "can": [
+                  "SEARCH__ENTITLEMENTS_BY_ENTT_OWNER",
+                  "SHOW_OVERVIEW_PAGE",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__ENTITLEMENT_USERS",
+                  "SHOW__ENTT_OWNER_FILTER_OPTIONS",
+                  "SHOW__ENTT_OWNER_UNSCORED_ENTITLEMENTS",
+                  "SHOW__ENTT_OWNER_PAGE",
+                  "SHOW__ENTT_OWNER_USER_PAGE",
+                  "SHOW__ENTT_OWNER_ENT_PAGE",
+                  "SHOW__USER_ENTITLEMENTS",
+                  "SHOW__RULES_BY_ENTT_OWNER",
+                  "REVOKE__CERTIFY_ACCESS",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "Zoran Executive": {
+                "title": "Executive",
+                "can": [
+                  "SEARCH__USER",
+                  "SHOW__ASSIGNMENTS_STATS",
+                  "SHOW__COMPANY_PAGE",
+                  "SHOW__COMPANY_ENTITLEMENTS_DATA",
+                  "SHOW__CRITICAL_ENTITLEMENTS",
+                  "SHOW__ENTITLEMENT_AVG_GROUPS",
+                  "SHOW__USER_ENTITLEMENTS"
+                ]
+              },
+              "###Zoran_Executive_Token###": {
+                "title": "Executive",
+                "can": [
+                  "SEARCH__USER",
+                  "SHOW__ASSIGNMENTS_STATS",
+                  "SHOW__COMPANY_PAGE",
+                  "SHOW__COMPANY_ENTITLEMENTS_DATA",
+                  "SHOW__CRITICAL_ENTITLEMENTS",
+                  "SHOW__ENTITLEMENT_AVG_GROUPS",
+                  "SHOW__USER_ENTITLEMENTS"
+                ]
+              },
+              "Zoran Supervisor": {
+                "title": "Supervisor",
+                "can": [
+                  "SEARCH__USER",
+                  "SHOW_OVERVIEW_PAGE",
+                  "SHOW__SUPERVISOR_FILTER_OPTIONS",
+                  "SHOW__SUPERVISOR_PAGE",
+                  "SHOW__SUPERVISOR_ENTITLEMENT_USERS",
+                  "SHOW__SUPERVISOR_USER_ENTITLEMENTS",
+                  "SHOW__SUPERVISOR_UNSCORED_ENTITLEMENTS",
+                  "SEARCH__SUPERVISOR_USER_ENTITLEMENTS",
+                  "REVOKE__CERTIFY_ACCESS",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "###Zoran_Supervisor_Token###": {
+                "title": "Supervisor",
+                "can": [
+                  "SEARCH__USER",
+                  "SHOW_OVERVIEW_PAGE",
+                  "SHOW__SUPERVISOR_FILTER_OPTIONS",
+                  "SHOW__SUPERVISOR_PAGE",
+                  "SHOW__SUPERVISOR_ENTITLEMENT_USERS",
+                  "SHOW__SUPERVISOR_USER_ENTITLEMENTS",
+                  "SHOW__SUPERVISOR_UNSCORED_ENTITLEMENTS",
+                  "SEARCH__SUPERVISOR_USER_ENTITLEMENTS",
+                  "REVOKE__CERTIFY_ACCESS",
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "Zoran User": {
+                "title": "User",
+                "can": [
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              },
+              "###Zoran_User_Token###": {
+                "title": "User",
+                "can": [
+                  "SHOW__ENTITLEMENT",
+                  "SHOW__USER",
+                  "SHOW__CERTIFICATIONS"
+                ]
+              }
+            }
+          },
+          "AuthzPolicyConfig" : {
+            "jas-admin-roles" : {
+              "admin" : [ "admin", "Zoran Admin", "Zoran Entitlement Owner", "Zoran Application Owner", "Zoran Supervisor", "Zoran Role Owner", "Zoran Role Engineer", "Admin", "Application Owner", "Entitlement Owner", "Supervisor", "Role Owner", "Role Engineer", "internal/role/openidm-admin", "internal/role/platform-provisioning", "internal/role/openidm-cert", "internal/role/glossary-admin", "internal/role/governance-administrator" ],
+              "user" : [ "Zoran Executive", "Executive", "Zoran User", "user", "User", "internal/role/openidm-authorized" ]
+            },
+            "white-list-roles" : [ "Zoran Entitlement Owner", "Zoran Application Owner", "Zoran Supervisor", "Zoran Role Engineer", "Zoran Role Owner", "Entitlement Owner", "Application Owner", "Supervisor", "Role Engineer", "Role Owner" ],
+            "white-list-entity-mapping" : {
+              "/autoid/api/user_access_decisions" : [ "Zoran Entitlement Owner", "Zoran Application Owner", "Zoran Supervisor", "Entitlement Owner", "Application Owner", "Supervisor" ],
+              "/autoid/api/rule_access_decisions" : [ "Zoran Entitlement Owner", "Zoran Application Owner", "Zoran Supervisor", "Entitlement Owner", "Application Owner", "Supervisor" ],
+              "/autoid/rolemine/roles" : [ "Zoran Role Owner", "Zoran Role Engineer", "Role Owner", "Role Engineer" ],
+              "/autoid/rolemine/users" : [ "Zoran Role Owner", "Zoran Role Engineer", "Role Owner", "Role Engineer" ],
+              "/autoid/rolemine/roles_metrics" : [ "Zoran Role Owner", "Zoran Role Engineer", "Role Owner", "Role Engineer" ]
+            }
+          }
+        }
+
+
+---
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jas-cm
+  labels:
+    app: jas
+    product: autoid
+data:
+  CADENCE_HOST: "cadence"
+  CADENCE_PORT: "7933"
+  CASSANDRA_AUTHENTICATION_ENABLED: "true"
+  CASSANDRA_CONTACT_POINTS: ""
+  CASSANDRA_KEYSTORE_PATH: "/cassandra-certs/zoran-cassandra-client-keystore.jks"
+  CASSANDRA_PORT: "9042"
+  CASSANDRA_SSL_ENABLED: "true"
+  CASSANDRA_TRUSTSTORE_PATH: "/cassandra-certs/zoran-cassandra-server-truststore.jks"
+  CLOUD_DATASTORE_ENABLED: "true"
+  CLOUD_DATASTORE_KEY: ""
+  CLOUD_DATASTORE_PROJECT_ID: ""
+  CONSUL_AUTHENTICATION_ENABLED: "true"
+  CONSUL_HOST: "consul-client"
+  CONSUL_PORT: "8500"
+  ETL_JOB_IMAGE: ""
+  ETL_JOB_IMAGE_REGISTRY: "autoid-registry"
+  DATAFLOW_ETL_CONTAINER_IMAGE: ""
+  DATAFLOW_MAX_WORKERS: "2"
+  DATAFLOW_NETWORK: ""
+  DATAFLOW_PROJECT_ID: ""
+  DATAFLOW_REGION: ""
+  DATAFLOW_SERVICE_ACCOUNT: ""
+  DATAFLOW_SUB_NETWORK: ""
+  DATAFLOW_TEMP_LOCATION: ""
+  DATAFLOW_WORKER_SERVICE_ACCOUNT: ""
+  DATAFLOW_ETL_CONFIG_LOCATION: ""
+  EPS_DB_SOURCE: "datastore"
+  ES_AUTHENTICATION_ENABLED: "true"
+  ES_HOST: ""
+  ES_KEYSTORE_PATH: "/elastic-certs/elastic-client-keystore.jks"
+  ES_PORT: "9243"
+  ES_SSL_ENABLED: "true"
+  ES_TRUSTSTORE_PATH: "/elastic-certs/elastic-server-truststore.jks"
+  ES_USETRUSTANDKEYSTORE: "false"
+  ES_PRIMARY_SHARDS_PER_INDEX: "3"
+  ES_REPLICA_SHARDS_PER_INDEX: "2"
+  GCP_CRED_PATH: "/gcp_credentials/"
+  GCP_PROJECT_ID: ""
+  GCP_STORAGE_CREDENTIAL_CONFIG: "/gcp_credentials/gcp-config.yml"
+  GOOGLE_GEOCODING_API_KEY: ""
+  JAS_AUTH_ENABLED: "false"
+  JAS_SIGNATURE_ALGORITHM: "hmac-sha256"
+  JAS_SIGNATURE_KEY_ID: "service1-hmac"
+  JAS_SIGNATURE_KEY_PATH: "/signature/signaturesecret.txt"
+  JAS_TLS_ENABLED: "true"
+  JAS_URL: ""
+  JWK_RESOURCE_PATH: "/opt/autoid/mounts/jwt/verify-key.json"
+  JWT_AUDIENCE: "http://my.service"
+  SECRET_ALIAS_ES_KEYSTORE_PASSWORD: ""
+  SECRET_ALIAS_ES_KEYSTORE: ""
+  SECRET_ALIAS_ES_PASSWORD: ""
+  SECRET_ALIAS_ES_TRUSTSTORE_PASSWORD: ""
+  SECRET_ALIAS_ES_TRUSTSTORE: ""
+  SECRET_ALIAS_ES_USERNAME: ""
+  SECRET_ALIAS_JAS_SIGNATURE_KEY: ""
+  SECRET_ALIAS_JAS_TLS_KEYSTORE_PASS: ""
+  SECRET_ALIAS_JAS_TLS_KEYSTORE: ""
+  SECRET_ALIAS_JAS_TLS_TRUSTSTORE_PASS: ""
+  SECRET_ALIAS_JAS_TLS_TRUSTSTORE: ""
+  TLS_ENABLED: "true"
+  TLS_KEYSTORE_KEY_ALIAS: "jasnodekey"
+  TLS_KEYSTORE_PATH: "/tls-cert/jas-client-keystore.jks"
+  TLS_TRUSTSTORE_PATH: "/tls-cert/jas-server-truststore.jks"
+  CONFIGURATION_MAP_FILE: "/opt/autoid/mounts/jas-config/jas.config"

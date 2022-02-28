@@ -1,0 +1,27 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: iga-datastore-schema-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: iga-datastore-schema-job
+          image: gcr.io/forgerock-autoid/ci/develop/bigtable-tenancy-initializer:481251878
+          env:
+            - name: TENANT_NAME
+              value: <ADD HERE> # example: jul-30-test
+            - name: BIG_TABLE_ENABLED
+              value: "#BIG_TABLE_ENABLED#"
+            - name: BIG_TABLE_PROJECT_ID
+              value: "#BIG_TABLE_PROJECT_ID#"
+            - name: BIG_TABLE_INSTANCE_ID
+              value: "#BIG_TABLE_INSTANCE_ID#"
+      imagePullSecrets:
+        - name: autoid-registry
+      restartPolicy: Never
+      serviceAccount: iga-workload-identity
+  backoffLimit: 1
+
+

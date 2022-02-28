@@ -1,0 +1,11 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jas
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/forgerock-autoid/ci/develop/jas:481251878
+        name: jas

@@ -1,0 +1,454 @@
+---
+kind: ConfigMap
+metadata:
+    name: idm-conf-audit
+apiVersion: v1
+data:
+    audit.json: |
+        {
+            "auditServiceConfig" : {
+                "handlerForQueries" : "json",
+                "availableAuditEventHandlers" : [
+                    "org.forgerock.audit.handlers.csv.CsvAuditEventHandler",
+                    "org.forgerock.audit.handlers.elasticsearch.ElasticsearchAuditEventHandler",
+                    "org.forgerock.audit.handlers.jms.JmsAuditEventHandler",
+                    "org.forgerock.audit.handlers.json.JsonAuditEventHandler",
+                    "org.forgerock.audit.handlers.json.stdout.JsonStdoutAuditEventHandler",
+                    "org.forgerock.openidm.audit.impl.RepositoryAuditEventHandler",
+                    "org.forgerock.openidm.audit.impl.RouterAuditEventHandler",
+                    "org.forgerock.audit.handlers.splunk.SplunkAuditEventHandler",
+                    "org.forgerock.audit.handlers.syslog.SyslogAuditEventHandler",
+                    "org.forgerock.audit.handlers.jas.JasAuditEventHandler"
+                ],
+                "filterPolicies" : {
+                    "field" : {
+                        "excludeIf" : [ ],
+                        "includeIf" : [
+                                "/config/before",
+                                "/config/after",
+                                "/activity/before",
+                                "/activity/after"
+                        ]
+                    }
+                },
+                "caseInsensitiveFields" : [
+                    "/access/http/request/headers",
+                    "/access/http/response/headers"
+                ]
+            },
+            "eventHandlers" : [
+            {
+                    "class" : "org.forgerock.audit.handlers.jas.JasAuditEventHandler",
+                    "config" : {
+                        "name" : "jas",
+                        "targetOutput": "#JAS_AUDIT_HANDLER_TARGET_OUTPUT#",
+                        "tenantId" : "#JAS_TENANT_ID#",
+                        "jasUrl" : "https://jas:10081",
+                        "nameSpace" : "openidm",
+                        "parserClass" : "org.forgerock.audit.handlers.jas.OpenIdmEventParser",
+                        "topicMetaFields" : {
+                                "activity": ["transactionId", "userId", "trackingId", "runAs", "operation", "changedFields", "message", "eventName", "status", "passwordChanged", "context"],
+                                "config": ["transactionId", "userId", "trackingId", "runAs", "operation", "changedFields"]
+                        },
+                        "topics" : [
+                                "activity",
+                                "config"
+                        ],
+                        "disableSslCertificateVerification": true,
+                        "enabled": true
+                    }
+                },
+                {
+                    "class" : "org.forgerock.audit.handlers.json.JsonAuditEventHandler",
+                    "config" : {
+                        "name" : "json",
+                        "logDirectory" : "&{idm.data.dir}/audit",
+                        "buffering" : {
+                            "maxSize" : 100000,
+                            "writeInterval" : "100 millis"
+                        },
+                        "topics" : [
+                            "access",
+                            "activity",
+                            "sync",
+                            "authentication",
+                            "config"
+                        ]
+                    }
+                },
+                {
+                    "class" : "org.forgerock.audit.handlers.json.stdout.JsonStdoutAuditEventHandler",
+                    "config" : {
+                        "name" : "json-stdout",
+                        "topics" : [
+                            "activity",
+                            "sync",
+                            "authentication",
+                            "config"
+                        ]
+                    }
+                },
+                {
+                    "class": "org.forgerock.openidm.audit.impl.RepositoryAuditEventHandler",
+                    "config": {
+                        "name": "repo",
+                        "enabled": false,
+                        "topics": [
+                            "access",
+                            "activity",
+                            "sync",
+                            "authentication",
+                            "config"
+                        ]
+                    }
+                }
+            ],
+            "eventTopics" : {
+                "config" : {
+                    "filter" : {
+                        "actions" : [
+                            "create",
+                            "update",
+                            "delete",
+                            "patch",
+                            "action"
+                        ]
+                    }
+                },
+                "activity" : {
+                    "filter" : {
+                        "actions" : [
+                            "create",
+                            "update",
+                            "delete",
+                            "patch",
+                            "action"
+                        ]
+                    },
+                    "watchedFields" : [ ],
+                    "passwordFields" : [
+                        "password"
+                    ]
+                }
+            },
+            "exceptionFormatter" : {
+                "type" : "text/javascript",
+                "file" : "bin/defaults/script/audit/stacktraceFormatter.js"
+            }
+        }
+
+---
+kind: ConfigMap
+metadata:
+    name: idm-conf-metrics
+apiVersion: v1
+data:
+    metrics.json: |
+        {
+            "enabled" : true
+        }
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: openidm-secrets-json
+data:
+    secrets.json: |
+        {
+        "stores": [
+        {
+          "name": "mainKeyStore",
+          "class": "org.forgerock.openidm.secrets.config.FileBasedStore",
+          "config": {
+            "file": "&{openidm.keystore.location|/var/run/secrets/idm/keystore.jceks}",
+            "storetype": "&{openidm.keystore.type|JCEKS}",
+            "providerName": "&{openidm.keystore.provider|SunJCE}",
+            "storePassword": "&{openidm.keystore.password|changeit}",
+            "mappings": [
+              {
+                "secretId" : "idm.default",
+                "types": [ "ENCRYPT", "DECRYPT" ],
+                "aliases": [ "&{openidm.config.crypto.alias|openidm-sym-default}" ]
+              },
+              {
+                "secretId" : "idm.config.encryption",
+                "types": [ "ENCRYPT", "DECRYPT" ],
+                "aliases": [ "&{openidm.config.crypto.alias|openidm-sym-default}" ]
+              },
+              {
+                "secretId" : "idm.password.encryption",
+                "types": [ "ENCRYPT", "DECRYPT" ],
+                "aliases": [ "&{openidm.config.crypto.alias|openidm-sym-default}" ]
+              },
+              {
+                "secretId" : "idm.jwt.session.module.encryption",
+                "types": [ "ENCRYPT", "DECRYPT" ],
+                "aliases": [ "&{openidm.https.keystore.cert.alias|openidm-localhost}" ]
+              },
+              {
+                "secretId" : "idm.jwt.session.module.signing",
+                "types": [ "SIGN", "VERIFY" ],
+                "aliases": [ "&{openidm.config.crypto.jwtsession.hmackey.alias|openidm-jwtsessionhmac-key}" ]
+              },
+              {
+                "secretId" : "idm.selfservice.encryption",
+                "types": [ "ENCRYPT", "DECRYPT" ],
+                "aliases": [ "selfservice" ]
+              },
+              {
+                "secretId" : "idm.selfservice.signing",
+                "types": [ "SIGN", "VERIFY" ],
+                "aliases": [ "&{openidm.config.crypto.selfservice.sharedkey.alias|openidm-selfservice-key}" ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "mainTrustStore",
+          "class": "org.forgerock.openidm.secrets.config.FileBasedStore",
+          "config": {
+            "file": "&{openidm.truststore.location|/var/run/secrets/idm/truststore}",
+            "storetype": "&{openidm.truststore.type|JKS}",
+            "providerName": "&{openidm.truststore.provider|SUN}",
+            "storePassword": "&{openidm.truststore.password|changeit}",
+            "mappings": [
+            ]
+          }
+        }
+        ],
+        "populateDefaults": true
+        }
+
+
+---
+kind: ConfigMap
+metadata:
+  name: idm-authentication
+apiVersion: v1
+data:
+  authentication.json: |
+    {
+        "serverAuthContext" : {
+            "sessionModule" : {
+                "name" : "JWT_SESSION",
+                "properties" : {
+                    "maxTokenLifeMinutes" : 120,
+                    "tokenIdleTimeMinutes" : 30,
+                    "sessionOnly" : true,
+                    "isHttpOnly" : true,
+                    "enableDynamicRoles" : false
+                }
+            },
+            "authModules" : [
+                {
+                    "name" : "STATIC_USER",
+                    "properties" : {
+                        "queryOnResource" : "internal/user",
+                        "username" : "anonymous",
+                        "password" : "anonymous",
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-reg"
+                        ]
+                    },
+                    "enabled" : true
+                },
+                {
+                    "name" : "STATIC_USER",
+                    "properties" : {
+                        "queryOnResource" : "internal/user",
+                        "username" : "openidm-admin",
+                        "password" : "&{openidm.admin.password}",
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-authorized",
+                            "internal/role/openidm-admin"
+                        ]
+                    },
+                    "enabled" : true
+                },
+                {
+                    "name" : "STATIC_USER",
+                    "properties" : {
+                        "queryOnResource" : "internal/user",
+                        "username" : "iga-internal-admin",
+                        "password" : "iga-internal-admin",
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-authorized",
+                            "internal/role/openidm-admin"
+                        ]
+                    },
+                    "enabled" : true
+                },
+                {
+                    "name" : "MANAGED_USER",
+                    "properties" : {
+                        "augmentSecurityContext": {
+                            "type" : "text/javascript",
+                            "source" : "var augmentYield = require('auth/customAuthz').setProtectedAttributes(security);require('auth/orgPrivileges').assignPrivilegesToUser(resource, security, properties, subjectMapping, privileges, 'privileges', 'privilegeAssignments', augmentYield);"
+                        },
+                        "queryId" : "credential-query",
+                        "queryOnResource" : "managed/user",
+                        "propertyMapping" : {
+                            "authenticationId" : "username",
+                            "userCredential" : "password",
+                            "userRoles" : "authzRoles",
+                            "additionalUserFields": ["adminOfOrg", "ownerOfOrg"]
+                        },
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-authorized"
+                        ]
+                    },
+                    "enabled" : true
+                },
+                {
+                    "name" : "OAUTH_CLIENT",
+                    "properties" : {
+                        "propertyMapping" : #OIDC_PROPERTY_MAPPING#,
+                        "defaultUserRoles" : [
+                            "internal/role/openidm-authorized"
+                        ],
+                        "augmentSecurityContext" : {
+                            "type" : "text/javascript",
+                            "globals" : { },
+                            "file" : "auth/populateAsManagedUser.js"
+                        },
+                        "idpConfig" : {
+                            "provider" : "OIDC",
+                            "scope" : #OIDC_SCOPE#,
+                            "uiConfig": {
+                                "iconBackground": "#0078d7",
+                                "iconClass": "fa-windows",
+                                "iconFontColor": "white",
+                                "buttonImage" : "images/loginlogo2.png",
+                                "buttonClass": "",
+                                "buttonDisplayName" : "OIDC",
+                                "buttonCustomStyle" : "background-color: #fff; border-color: #8b8b8b; color: #8b8b8b;",
+                                "buttonCustomStyleHover" : "background-color: #fff; border-color: #8b8b8b; color: #8b8b8b;"
+                            },
+                            "authenticationIdKey" : #OIDC_AUTHENTICATIONID_KEY#,
+                            "clientId" : "#CLIENT_ID#",
+                            "clientSecret" : "#CLIENT_SECRET#",
+                            "authorizationEndpoint" : "#AUTHORIZATION_ENDPOINT#",
+                            "tokenEndpoint" : "#TOKEN_ENDPOINT#",
+                            "wellKnownEndpoint" : "#WELL_KNOWN_ENDPOINT#",
+                            "redirectUri" : "#OIDC_REDIRECT_URL#",
+                            "configClass" : "org.forgerock.oauth.clients.oidc.OpenIDConnectClientConfiguration",
+                            "displayIcon" : "forgerock",
+                            "enabled" : true
+                        },
+                        "queryOnResource" : "managed/user"
+                    },
+                    "enabled" : #OIDC_ENABLED#
+                }
+            ]
+        }
+    }
+
+---
+kind: ConfigMap
+metadata:
+  name: openidm-populateasmanageduser-js
+apiVersion: v1
+data:
+  populateAsManagedUser.js: |
+    /*
+    * Copyright 2014-2018 ForgeRock AS. All Rights Reserved
+    *
+    * Use of this code requires a commercial software license with ForgeRock AS.
+    * or with one of its affiliates. All use shall be exclusively subject
+    * to such license between the licensee and ForgeRock AS.
+    */
+
+    /*global security, properties, openidm */
+
+
+    /**
+    * This security context population script is called when the auth module authenticates a
+    * user from a security context which is related to managed/user, and we wish to aggregate
+    * the current security context with the one for the linked managed/user record (if found).
+    *
+    * global properties - auth module-specific properties from authentication.json for the
+    *                     passthrough user auth module
+    *
+    *      {
+    *          "authnPopulateContextScript" : "auth/populateAsManagedUser.js",
+    *          "queryOnResource" : "system/AD/account",
+    *          "propertyMapping" : {
+    *              "groupMembership" : "memberOf"
+    *              "authenticationId" : "sAMAccountName"
+    *          },
+    *          "managedUserLink" : "systemAdAccounts_managedUser",
+    *          "defaultUserRoles" : [
+    *              "internal/role/openidm-authorized"
+    *          ]
+    *      }
+    *
+    * global security - map of security context details as have been determined thus far
+    *
+    *      {
+    *          "authorization": {
+    *              "id": "jsmith",
+    *              "component": "passthrough",
+    *              "roles": [ "internal/role/openidm-authorized" ]
+    *          },
+    *          "authenticationId": "jsmith",
+    *      }
+    */
+
+    (function () {
+        logger.debug("Augment context for: {}", security.authenticationId);
+
+        var _ = require("lib/lodash"),
+            userDetail,
+            resource = properties.queryOnResource,
+            propertyMapping = properties.propertyMapping,
+            userIdPropertyName = propertyMapping.authenticationId,
+            managedUserId,
+            managedUser;
+
+
+        managedUser = openidm.query("managed/user", { '_queryFilter' : '/'+ userIdPropertyName + ' eq "' + security.authenticationId  + '"' }, ["*","authzRoles/*"]);
+
+        if (managedUser.result.length === 0) {
+            throw {
+                "code" : 401,
+                "message" : "Access denied, managed/user entry is not found"
+            };
+        }
+
+        if (managedUser.result[0].accountStatus !== "active") {
+            throw {
+                "code" : 401,
+                "message" : "Access denied, user inactive"
+            };
+        }
+
+        // copy and update necessary fields within security authorization map
+        var securityContextClone = {};
+        Object.keys(security.authorization).forEach(function (k) {
+            securityContextClone[k] = security.authorization[k];
+        });
+
+        securityContextClone.id = managedUser.result[0]._id;
+        securityContextClone.component = "managed/user";
+        securityContextClone.queryId = "credential-query";
+        securityContextClone.authenticationIdProperty = userIdPropertyName;
+        securityContextClone.roles = managedUser.result[0].authzRoles
+                ? _.uniq(
+                        security.authorization.roles.concat(
+                                _.map(managedUser.result[0].authzRoles, function (role) {
+                                    // appending empty string gets the value from java into a format more familiar to JS
+                                    return org.forgerock.json.resource.ResourcePath.valueOf(role._ref) + "";
+                                })
+                        )
+                )
+                : security.authorization.roles;
+
+        securityContextClone.authenticationId = managedUser.result[0][userIdPropertyName];
+        security.authorization = securityContextClone;
+
+        return require('auth/customAuthz').setProtectedAttributes(security);
+
+    }());
+
+

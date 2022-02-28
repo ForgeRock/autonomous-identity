@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iga-ui
+  labels:
+    app: autoid-iga-ui
+    product: autoid
+spec:
+  selector:
+    matchLabels:
+      app: autoid-iga-ui
+      product: autoid
+  template:
+    metadata:
+      labels:
+        app: autoid-iga-ui
+        product: autoid
+    spec:
+      containers:
+        - image:
+          name: iga-ui
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d/
+              name: iga-nginx-confd
+      imagePullSecrets:
+        - name: autoid-registry
+      volumes:
+        - name: iga-nginx-confd
+          configMap:
+            name: iga-nginx-confd
