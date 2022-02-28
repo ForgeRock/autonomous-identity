@@ -1,4 +1,0 @@
-{
-    "useDataSource" : "default",
-    "workflowDirectory" : "&{idm.instance.dir}/workflow"
-}

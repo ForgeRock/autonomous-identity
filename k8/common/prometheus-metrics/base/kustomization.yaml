@@ -1,4 +1,0 @@
----
-resources:
-- prometheus-metrics_config_map.yaml
-- prometheus-metrics_deployment.yaml
