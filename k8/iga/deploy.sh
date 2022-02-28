@@ -152,6 +152,20 @@ if [ $? -ne 0 ]
         exit 1
 fi
 
+if [ "${ES_USETRUSTANDKEYSTORE}" = false ] ;
+  then
+
+    sed -ibackup "s|          - mountPath: /elastic-certs/||" ../common/jas/base/jas_deployment.yaml
+    sed -ibackup "s|            name: jas-elastic-certs||" ../common/jas/base/jas_deployment.yaml
+
+    sed -ibackup "/      - name: jas-elastic-certs$/{N
+      s/      - name: jas-elastic-certs\n        secret://
+      }" ../common/jas/base/jas_deployment.yaml
+
+    sed -ibackup "s|          secretName: jas-elastic-certs||" ../common/jas/base/jas_deployment.yaml
+
+fi
+
 kubectl -n $NAMESPACE apply -k app/
 
 echo "Waiting for services to start..."
