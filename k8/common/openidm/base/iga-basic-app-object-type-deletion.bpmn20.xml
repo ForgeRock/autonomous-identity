@@ -11,7 +11,7 @@
         def requestIndex = openidm.action('iga/governance/request/' + requestId, 'GET', [:], [:]);
         if(requestIndex) {
           def request = requestIndex.request;
-          def result = openidm.action('iga/governance/applications/' + request.applicationId + '/objectTypes/' + request.objectTypeId, 'DELETE', [:]);
+          def result = openidm.action('iga/governance/applications/' + request.common.applicationId + '/objectTypes/' + request.common.objectTypeId, 'DELETE', [:]);
           execution.setVariables(['result': result]);
         } else {
           execution.setVariables([message: 'request not found']);

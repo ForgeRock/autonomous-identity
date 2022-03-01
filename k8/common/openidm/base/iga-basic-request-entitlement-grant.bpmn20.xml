@@ -11,14 +11,14 @@
   if(requestIndex) {
     def request = requestIndex.request;
     def body = [:];
-    if(request.assignees.startsWith('/managed/user/')) {
+    if(request.common.assignees.startsWith('/managed/user/')) {
       def params = [:];
-      params.applicationId = request.catalog.resource.applicationId;
-      params.userId = request.assignees.substring(14);
+      params.applicationId = requestIndex.resource.applicationId;
+      params.userId = request.common.assignees.substring(14);
       def accountSearchResult = openidm.action('iga/governance/account', 'GET', body, params);
       def account = accountSearchResult[0];
 
-      body.resourceIds = [request.catalog.resource.id];
+      body.resourceIds = [requestIndex.resource.id];
       def result = openidm.action('iga/governance/user/' + params.userId + '/account/' + account.id + '/grant-entitlement', 'POST', body);
       execution.setVariables(result);
     }

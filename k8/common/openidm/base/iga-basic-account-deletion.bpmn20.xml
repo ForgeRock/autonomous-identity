@@ -6,10 +6,21 @@
     <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="scripttask0"></sequenceFlow>
     <scriptTask id="scripttask0" name="Call Remediate Script" scriptFormat="groovy" flowable:autoStoreVariables="false">
       <script>
-      // to be implemented
-        def content = execution.getVariables();
-
-        execution.setVariables('done');
+      def content = execution.getVariables();
+      def requestId = content.id;
+      def requestIndex = openidm.action('iga/governance/request/' + requestId, 'GET', [:], [:]);
+      if(requestIndex) {
+        def request = requestIndex.request;
+        def account = openidm.action('iga/governance/account/' + request.common.accountId, 'GET', [:]);
+        if(account.igaContent) {
+          def result = openidm.action('iga/governance/application/' + account.applicationId + '/__ACCOUNT__/' + request.common.accountId, 'DELETE', [:]);
+          execution.setVariables(result);
+        } else {
+          execution.setVariables([message: 'account not found']);
+        }
+      } else {
+        execution.setVariables([message: 'request not found']);
+      }
       </script>
     </scriptTask>
     <sequenceFlow id="flow1" sourceRef="scripttask0" targetRef="endevent1"></sequenceFlow>
