@@ -319,7 +319,7 @@ data:
                                 "iconBackground": "#0078d7",
                                 "iconClass": "fa-windows",
                                 "iconFontColor": "white",
-                                "buttonImage" : "images/loginlogo2.png",
+                                "buttonImage" : "images/forgerock-7.0-vertical.svg",
                                 "buttonClass": "",
                                 "buttonDisplayName" : "OIDC",
                                 "buttonCustomStyle" : "background-color: #fff; border-color: #8b8b8b; color: #8b8b8b;",
