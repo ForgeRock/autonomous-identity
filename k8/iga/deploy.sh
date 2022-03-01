@@ -143,15 +143,6 @@ else
   sed -ibackup "s|#EPS_DB_SOURCE#|datastore|"            app/jas/overlays/jas_config_map.yaml
 fi
 
-echo "Initiating openidm bootstrap process"
-# bootstrap_openidm.sh <namespace>
-./bootstrap_openidm.sh $NAMESPACE
-if [ $? -ne 0 ]
-    then
-        echo "ERROR: Failed to bootstrap openidm. Unable to continue!"
-        exit 1
-fi
-
 if [ "${ES_USETRUSTANDKEYSTORE}" = false ] ;
   then
 
@@ -164,6 +155,15 @@ if [ "${ES_USETRUSTANDKEYSTORE}" = false ] ;
 
     sed -ibackup "s|          secretName: jas-elastic-certs||" ../common/jas/base/jas_deployment.yaml
 
+fi
+
+echo "Initiating openidm bootstrap process"
+# bootstrap_openidm.sh <namespace>
+./bootstrap_openidm.sh $NAMESPACE
+if [ $? -ne 0 ]
+    then
+        echo "ERROR: Failed to bootstrap openidm. Unable to continue!"
+        exit 1
 fi
 
 kubectl -n $NAMESPACE apply -k app/
