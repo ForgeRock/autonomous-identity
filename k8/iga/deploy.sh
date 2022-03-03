@@ -114,6 +114,7 @@ sed -ibackup "s|#PUB_SUB_OPENIDM_AUDIT_TOPIC#|${PUB_SUB_OPENIDM_AUDIT_TOPIC}|"  
 sed -ibackup "s|#PUB_SUB_OPENIDM_AUDIT_SUBSCRIPTION#|${PUB_SUB_OPENIDM_AUDIT_SUBSCRIPTION}|"      app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#PUB_SUB_OPENIDM_AUDIT_BATCH_SIZE#|${PUB_SUB_OPENIDM_AUDIT_BATCH_SIZE}|"          app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#PUB_SUB_OPENIDM_AUDIT_POLL_INTERVAL#|${PUB_SUB_OPENIDM_AUDIT_POLL_INTERVAL}|"    app/jas/overlays/jas_config_map.yaml
+sed -ibackup "s|#WORKLOAD_IDENTITY_SERVICE_ACCOUNT#|${WORKLOAD_IDENTITY_SERVICE_ACCOUNT_NAME}|"   app/jas/overlays/jas_config_map.yaml
 sed -ibackup "s|#TLS_STORE_PASS#|${TLS_STORE_PASS_ENC}|"                                          app/jas/overlays/jas_secret.yaml
 sed -ibackup "s|#ES_HOST#|${ES_HOST}|"                                                            app/etl/overlays/etl_config_map.yaml
 sed -ibackup "s|#ES_PORT#|${ES_PORT}|"                                                            app/etl/overlays/etl_config_map.yaml

@@ -356,3 +356,4 @@ data:
   TLS_KEYSTORE_PATH: "/tls-cert/jas-client-keystore.jks"
   TLS_TRUSTSTORE_PATH: "/tls-cert/jas-server-truststore.jks"
   CONFIGURATION_MAP_FILE: "/opt/autoid/mounts/jas-config/jas.config"
+  WORKLOAD_IDENTITY_SERVICE_ACCOUNT: "iga-workload-identity"
