@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: iga-schema-seed-job
-        image: gcr.io/forgerock-autoid/ci/develop/iga-demo-data:484851761
+        image: gcr.io/forgerock-autoid/ci/develop/iga-demo-data:484947093
         command: ["bash","-c","/opt/iga-seed-data/script/conf/confLoader.py"]
       restartPolicy: Never
       imagePullSecrets:
