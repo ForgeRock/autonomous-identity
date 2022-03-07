@@ -63,6 +63,7 @@ sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                              
 sed -ibackup "s|#OIDC_ENABLED#|${OIDC_ENABLED}|"                                                  app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#IGA_UI_SUBDOMAIN#|${IGA_UI_SUBDOMAIN}|"                                          app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#APPLICATION_TEMPLATE_FOLDER#|${APPLICATION_TEMPLATE_FOLDER}|"                    app/iga-api/overlays/iga_api_config_map.yaml
+sed -ibackup "s|#IGA_INTERNAL_ADMIN#|${IGA_INTERNAL_ADMIN}|"                                      app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#PLATFORM_UI_SUBDOMAIN#|${PLATFORM_UI_SUBDOMAIN}|"                                app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#DOMAIN_NAME#|${DOMAIN_NAME}|"                                                    app/iga-api/overlays/iga_api_config_map.yaml
 sed -ibackup "s|#JAS_TENANT_ID#|${JAS_TENANT_ID}|"                                                app/openidm/overlays/openidm_config_map.yaml
