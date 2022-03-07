@@ -27,7 +27,7 @@ def oldSource = oldSource as JsonValue
 mappingName =  mappingConfig.name.getObject() as String
 
 try {
-    if ((!mappingSource.equals("managed/user") || !mappingSource.equals("managed/account")) || syncContext == null) {
+    if ((!mappingSource.equals("managed/user") && !mappingSource.equals("managed/account")) || syncContext == null) {
         return;
     }
 
