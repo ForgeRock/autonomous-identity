@@ -8,7 +8,7 @@
       <script>
   def content = execution.getVariables();
   def requestId = content.id;
-  def requestIndex = openidm.action('iga/governance/request/' + requestId, 'GET', [:], [:]);
+  def requestIndex = openidm.action('iga/governance/requests/' + requestId, 'GET', [:], [:]);
   if(requestIndex) {
     def request = requestIndex.request;
     def accounts = openidm.action('iga/governance/application/' + request.common.applicationId + '/__ACCOUNT__/preview-object', 'POST', ['requestBody':[request.common.userId]]);

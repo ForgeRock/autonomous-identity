@@ -238,7 +238,7 @@ data:
                     "tokenIdleTimeMinutes" : 30,
                     "sessionOnly" : true,
                     "isHttpOnly" : true,
-                    "enableDynamicRoles" : false
+                    "enableDynamicRoles" : true
                 }
             },
             "authModules" : [
