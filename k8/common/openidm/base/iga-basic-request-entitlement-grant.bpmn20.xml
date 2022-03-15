@@ -7,7 +7,7 @@
     <scriptTask id="scripttask0" name="Call Remediate Script" scriptFormat="groovy" flowable:autoStoreVariables="false">
       <script>def content = execution.getVariables();
   def requestId = content.id;
-  def requestIndex = openidm.action('iga/governance/requests/' + requestId, 'GET', [:], [:]);
+  def requestIndex = openidm.action('iga/governance/request/' + requestId, 'GET', [:], [:]);
   if(requestIndex) {
     def request = requestIndex.request;
     def body = [:];

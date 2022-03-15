@@ -8,7 +8,7 @@
       <script>
   def content = execution.getVariables();
   def requestId = content.id;
-  def requestIndex = openidm.action('iga/governance/requests/' + requestId, 'GET', [:], [:]);
+  def requestIndex = openidm.action('iga/governance/request/' + requestId, 'GET', [:], [:]);
   if(requestIndex) {
     def request = requestIndex.request;
     def currentResource = openidm.action('iga/governance/resource/' + request.common.resourceId, 'GET', [:]);
