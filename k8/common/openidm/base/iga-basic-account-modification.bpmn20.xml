@@ -18,7 +18,7 @@
             account.object.put(key, val);
           };
 
-          def result = openidm.action('iga/governance/application/' + request.common.applicationId + '/__ACCOUNT__/' + request.common.accountId, 'PUT', ['requestBody':[account]]);
+          def result = openidm.action('iga/governance/application/' + request.common.applicationId + '/__ACCOUNT__/' + request.common.accountId, 'PUT', account);
           execution.setVariables([message: 'done']);
         } else {
           execution.setVariables([message: 'account not found']);
