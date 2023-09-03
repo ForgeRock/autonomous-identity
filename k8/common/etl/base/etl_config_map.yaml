@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: etl-cm
+  labels:
+    app: etl
+    product: autoid
+data:
+  JAS_URL: "https://jas:10081"
+  JAS_AUTH_ENABLED: "false"
+  JAS_TLS_ENABLED: "true"
+  JAS_TLS_KEYSTORE_KEY_ALIAS: "jasnodekey"
+  JAS_TLS_KEYSTORE: "/tls-cert/jas-client-keystore.jks"
+  JAS_TLS_TRUSTSTORE: "/tls-cert/jas-server-truststore.jks"
+  JAS_SIGNATURE_KEY_PATH: "/signature/signaturesecret.txt"
+  JAS_SIGNATURE_KEY_ID: "service1-hmac"
+  JAS_SIGNATURE_ALGORITHM: "hmac-sha256"
+  ES_HOST: ""
+  ES_PORT: "9243"
+  ES_AUTHENTICATION_ENABLED: "true"
+  ES_SSL_ENABLED: "true"
+  ES_USETRUSTANDKEYSTORE: "false"
+  ES_KEYSTORE_PATH: "/elastic-certs/elastic-client-keystore.jks"
+  ES_TRUSTSTORE_PATH: "/elastic-certs/elastic-server-truststore.jks"

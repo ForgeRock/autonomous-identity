@@ -1,0 +1,21 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: iga-datastore-schema-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: iga-datastore-schema-job
+          image: gcr.io/forgerock-autoid/ci/develop/tenancy-initializer:499664167
+          env:
+            - name: TENANT_NAME
+              value: panduri-0929-funval-1 # example: jul-30-test
+      imagePullSecrets:
+        - name: autoid-registry
+      restartPolicy: Never
+      serviceAccount: iga-workload-identity
+  backoffLimit: 1
+
+

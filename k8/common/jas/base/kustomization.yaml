@@ -1,0 +1,7 @@
+---
+resources:
+- jas_config_map.yaml
+- jas_deployment.yaml
+- jas_secret.yaml
+- jas_service.yaml
+- jas_rbac.yaml

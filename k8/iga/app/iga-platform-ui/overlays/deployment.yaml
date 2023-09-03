@@ -1,0 +1,12 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iga-platform-ui
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/forgerock-autoid/ci/develop/iga-platform-ui:499664167
+        name: iga-platform-ui
+        

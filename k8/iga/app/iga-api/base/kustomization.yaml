@@ -1,0 +1,6 @@
+---
+resources:
+- iga_api_config_map.yaml
+- iga_api_deployment.yaml
+- iga_api_secret.yaml
+- iga_api_service.yaml

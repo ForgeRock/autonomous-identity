@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: jas
+    product: autoid
+  name: jas
+spec:
+  ports:
+    - port: 10081
+      protocol: TCP
+      targetPort: 10081
+      name: http
+  selector:
+    app: jas
+    product: autoid
+  type: ClusterIP

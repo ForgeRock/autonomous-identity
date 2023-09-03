@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jas
+  labels:
+    app: jas
+    product: autoid
+spec:
+  selector:
+    matchLabels:
+      app: jas
+      product: autoid
+  template:
+    metadata:
+      labels:
+        app: jas
+        product: autoid
+    spec:
+      containers:
+      - image: ""
+        name: jas
+        resources:
+          limits:
+            memory: "3072Mi"
+        envFrom:
+          - configMapRef: { name: jas-cm }
+          - secretRef: { name: jas-env }
+        volumeMounts:
+          - mountPath: /tls-cert/
+            name: jas-tls-certs
+          - mountPath: /signature/
+            name: jas-signature
+          - mountPath: /opt/autoid/mounts/jwt/
+            name: jwt-certs
+          - mountPath: /elastic-certs/
+            name: jas-elastic-certs
+          - mountPath: /opt/autoid/mounts/jas-config/
+            name: jas-config
+      imagePullSecrets:
+        - name: autoid-registry
+      volumes:
+      - name: jwt-certs
+        secret:
+          secretName: api-jwt-certs
+      - name: jas-tls-certs
+        secret:
+          secretName: jas-tls-certs
+      - name: jas-signature
+        secret:
+          secretName: jas-signature
+      - name: jas-config
+        configMap:
+          name: jas-config
+      - name: jas-elastic-certs
+        secret:
+          secretName: jas-elastic-certs
+      serviceAccount: iga-workload-identity

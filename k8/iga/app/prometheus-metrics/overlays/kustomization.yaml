@@ -1,0 +1,9 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ../../../../common/prometheus-metrics/base
+
+patchesStrategicMerge:
+- prometheus-metrics_config_map.yaml
+- prometheus-metrics_deployment.yaml
